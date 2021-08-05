@@ -31,7 +31,7 @@ export const GlobalStyle: GlobalStyleComponent<
 
     html,
     body {
-      color: ${theme.colors.text};
+      color: ${theme.colors.white};
       background: ${theme.colors.bg};
     }
 
