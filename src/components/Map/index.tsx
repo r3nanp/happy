@@ -1,20 +1,22 @@
 import 'leaflet/dist/leaflet.css'
-import { ReactNode } from 'react'
 import { MapContainer, TileLayer } from 'react-leaflet'
-import Link from 'next/link'
 
 import * as S from './styles'
 
-type MapProps = { children: ReactNode }
+export type MapProps = {
+  initialLatitude: number
+  initialLongitude: number
+}
 
-export default function Map() {
+export default function Map({ initialLatitude, initialLongitude }: MapProps) {
   const MAPBOX_TOKEN = process.env.NEXT_PUBLIC_MAPBOX_TOKEN
 
   return (
     <S.Container>
       <MapContainer
-        center={[-3.7305253, -38.5311193]}
+        center={[initialLatitude, initialLongitude]}
         zoom={15}
+        zoomControl={false}
         style={{ width: '100%', height: '100%' }}
       >
         <TileLayer
@@ -24,12 +26,6 @@ export default function Map() {
               : 'https://a.tile.openstreetmap.org/{z}/{x}/{y}.png'
           }
         />
-
-        <Link href="/orphanage/create">
-          <a className="create-orphanage">
-            <S.PlusIcon />
-          </a>
-        </Link>
       </MapContainer>
     </S.Container>
   )
