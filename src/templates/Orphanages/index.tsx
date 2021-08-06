@@ -4,7 +4,7 @@ import Link from 'next/link'
 
 import * as S from './styles'
 
-export function OrphanageTemplate() {
+export function OrphanagesTemplate() {
   const Map = dynamic(() => import('components/Map'), {
     ssr: false
   })
