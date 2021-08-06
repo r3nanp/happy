@@ -1,5 +1,4 @@
 import styled, { css } from 'styled-components'
-import { FiPlus } from 'react-icons/fi'
 
 export const Container = styled.div`
   ${({ theme }) => css`
@@ -8,31 +7,32 @@ export const Container = styled.div`
     position: relative;
     display: flex;
 
-    .create-orphanage {
-      z-index: 1000;
-      position: absolute;
-      right: 40px;
-      bottom: 40px;
-
-      width: 5rem;
-      height: 5rem;
-
-      border-radius: 25%;
+    .map-popup .leaflet-popup-content-wrapper {
+      background: rgba(255, 255, 255, 0.8);
+      border-radius: 1.2rem;
+      box-shadow: none;
+    }
+    .map-popup .leaflet-popup-content {
+      color: #0089a5;
+      font-size: ${theme.font.sizes.small};
+      font-weight: ${theme.font.bold};
+      margin: 0.5rem 0.8rem;
       display: flex;
-      justify-content: center;
+      justify-content: space-between;
       align-items: center;
-      background: ${theme.colors.blue};
-      transition: filter ${theme.transition.default};
-
-      &:hover {
-        filter: brightness(0.6);
-      }
+    }
+    .map-popup .leaflet-popup-content a {
+      width: 2.5rem;
+      height: 2.5rem;
+      background: ${theme.colors['blue-hover']};
+      box-shadow: ${theme.shadows};
+      border-radius: 0.8rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .map-popup .leaflet-popup-tip-container {
+      display: none;
     }
   `}
-`
-
-export const PlusIcon = styled(FiPlus)`
-  width: 2.5rem;
-  height: 2.5rem;
-  color: white;
 `
