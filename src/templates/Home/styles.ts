@@ -115,11 +115,5 @@ export const Location = styled.div`
 export const ArrowIcon = styled(FaArrowRight)`
   width: 2rem;
   height: 2rem;
-
-  color: ${({ theme }) => theme.colors.heading};
-  transition: color ${({ theme }) => theme.transition.default};
-
-  &:hover {
-    color: ${({ theme }) => theme.colors.blue};
-  }
+  color: rgba(0, 0, 0, 0.6);
 `

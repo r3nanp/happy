@@ -26,7 +26,7 @@ export function HomeTemplate() {
           <span>Ceará</span>
         </S.Location>
 
-        <Link href="/orphanage">
+        <Link href="/orphanages">
           <a className="arrow">
             <S.ArrowIcon />
           </a>
