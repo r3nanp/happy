@@ -28,7 +28,8 @@ export const theme = {
     input: '#F5F8FA',
     'blue-low': '#D1EDF2',
     'red-low': '#FFE4EE',
-    'green-low': '#EDFFF6'
+    'green-low': '#EDFFF6',
+    'blue-hover': '#17d6db'
   },
   layers: {
     base: 10,
