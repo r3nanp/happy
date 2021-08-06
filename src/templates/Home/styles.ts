@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 import { FaArrowRight } from 'react-icons/fa'
 
 export const Container = styled.main`
@@ -6,24 +6,72 @@ export const Container = styled.main`
   height: 100vh;
   background: ${({ theme }) => theme.gradient};
   display: grid;
-  grid-template-columns: repeat(2, minmax(300px, 1fr));
+  grid-template-columns: 1fr 1fr 20rem;
+  padding: 7rem;
 
-  .image-wrapper {
-    width: 20rem;
-    height: 10rem;
+  @media screen and (max-width: 768px) {
+    padding: 2rem;
+
+    grid-template-columns: 1fr;
+    place-items: center;
   }
+`
+
+export const Children = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  @media screen and (max-width: 768px) {
+    display: none;
+  }
+`
+
+export const Content = styled.section`
+  ${({ theme }) => css`
+    max-width: 35rem;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+
+    .image-wrapper {
+      width: 25rem;
+    }
+
+    h1 {
+      font-size: ${theme.font.sizes.huge};
+      font-weight: ${theme.font.bold};
+      line-height: 5rem;
+    }
+
+    p {
+      letter-spacing: 0.075rem;
+      margin-top: 2.5rem;
+      line-height: 1.5rem;
+    }
+
+    @media screen and (max-width: 768px) {
+      .image-wrapper {
+        width: 20rem;
+      }
+
+      h1 {
+        font-size: ${theme.font.sizes.xxlarge};
+        line-height: 2.5rem;
+      }
+
+      p {
+        font-size: ${theme.font.sizes.large};
+      }
+    }
+  `}
 `
 
 export const Wrapper = styled.div`
   position: relative;
-
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  justify-content: space-between;
-  margin: 1rem;
-
-  background: url('/img/children.svg') no-repeat center 80%;
 
   .arrow {
     position: absolute;
@@ -32,34 +80,16 @@ export const Wrapper = styled.div`
     width: 5rem;
     height: 5rem;
     background: ${({ theme }) => theme.colors.yellow};
-    border-radius: 25%;
+    border-radius: 35%;
     display: flex;
     align-items: center;
     justify-content: center;
 
-    transition: opacity ${({ theme }) => theme.transition.default};
+    transition: background-color ${({ theme }) => theme.transition.default};
 
     &:hover {
-      opacity: 0.7;
+      background-color: #96feff;
     }
-  }
-`
-
-export const Content = styled.section`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-evenly;
-
-  h1 {
-    font-size: ${({ theme }) => theme.font.sizes.xxlarge};
-    font-weight: ${({ theme }) => theme.font.bold};
-    line-height: 5rem;
-  }
-
-  p {
-    margin-top: 2.5rem;
-    line-height: 1.5rem;
   }
 `
 
@@ -67,7 +97,7 @@ export const Location = styled.div`
   position: absolute;
   right: 0;
   top: 0;
-  font-size: ${({ theme }) => theme.font.sizes.medium};
+  font-size: ${({ theme }) => theme.font.sizes.xlarge};
   line-height: 2rem;
   display: flex;
   flex-direction: column;
@@ -76,11 +106,20 @@ export const Location = styled.div`
   > strong {
     font-weight: ${({ theme }) => theme.font.bold};
   }
+
+  @media screen and (max-width: 768px) {
+    display: none;
+  }
 `
 
 export const ArrowIcon = styled(FaArrowRight)`
   width: 2rem;
   height: 2rem;
 
-  color: white;
+  color: ${({ theme }) => theme.colors.heading};
+  transition: color ${({ theme }) => theme.transition.default};
+
+  &:hover {
+    color: ${({ theme }) => theme.colors.blue};
+  }
 `
