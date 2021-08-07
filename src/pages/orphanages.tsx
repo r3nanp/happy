@@ -1,5 +1,5 @@
-import { OrphanageTemplate } from 'templates/Orphanage'
+import { OrphanagesTemplate } from 'templates/Orphanages'
 
 export default function Orphanages() {
-  return <OrphanageTemplate />
+  return <OrphanagesTemplate />
 }
