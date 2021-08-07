@@ -38,7 +38,7 @@ export function OrphanagesTemplate() {
 
       <Map initialLatitude={-3.7305253} initialLongitude={-38.5311193} />
 
-      <Link href="/orphanage/create">
+      <Link href="/orphanage/create-orphanage">
         <a className="create-orphanage">
           <S.PlusIcon />
         </a>
