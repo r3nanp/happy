@@ -6,9 +6,14 @@ import * as S from './styles'
 export type MapProps = {
   initialLatitude: number
   initialLongitude: number
+  height?: string
 }
 
-export default function Map({ initialLatitude, initialLongitude }: MapProps) {
+export default function Map({
+  initialLatitude,
+  initialLongitude,
+  height
+}: MapProps) {
   const MAPBOX_TOKEN = process.env.NEXT_PUBLIC_MAPBOX_TOKEN
 
   return (
@@ -17,7 +22,7 @@ export default function Map({ initialLatitude, initialLongitude }: MapProps) {
         center={[initialLatitude, initialLongitude]}
         zoom={15}
         zoomControl={false}
-        style={{ width: '100%', height: '100%' }}
+        style={{ width: '100%', height: `${height ?? '100%'}` }}
       >
         <TileLayer
           url={
