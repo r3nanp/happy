@@ -1,13 +1,51 @@
+import { useEffect, useMemo, useState } from 'react'
 import dynamic from 'next/dynamic'
 import Image from 'next/image'
 import Link from 'next/link'
 
+import { Loading } from 'components/Loading'
 import * as S from './styles'
 
-export function OrphanagesTemplate() {
-  const Map = dynamic(() => import('components/Map'), {
-    ssr: false
+type Orphanages = {
+  id: number
+  name: string
+  latitude: number
+  longitude: number
+}
+
+type OrphanageProps = {
+  orphanages: Orphanages[]
+}
+
+export function OrphanagesTemplate({ orphanages }: OrphanageProps) {
+  const Map = useMemo(
+    () =>
+      dynamic(() => import('components/Map'), {
+        ssr: false,
+        // eslint-disable-next-line react/display-name
+        loading: () => <Loading />
+      }),
+    []
+  )
+
+  const [position, setPosition] = useState({
+    latitude: -3.7305253,
+    longitude: -38.5311193
   })
+
+  useEffect(() => {
+    navigator.geolocation.getCurrentPosition(
+      position => {
+        const { latitude, longitude } = position.coords
+
+        setPosition({
+          latitude,
+          longitude
+        })
+      },
+      error => console.error(error)
+    )
+  }, [])
 
   return (
     <S.Container>
@@ -36,7 +74,11 @@ export function OrphanagesTemplate() {
         </footer>
       </S.ContentSidebar>
 
-      <Map initialLatitude={-3.7305253} initialLongitude={-38.5311193} />
+      <Map
+        initialLatitude={position.latitude}
+        initialLongitude={position.longitude}
+        orphanages={orphanages}
+      />
 
       <Link href="/orphanage/create-orphanage">
         <a className="create-orphanage">
