@@ -45,5 +45,6 @@ export const Error = styled.p`
   ${({ theme }) => css`
     color: ${theme.colors.red};
     font-size: ${theme.font.sizes.xsmall};
+    margin-bottom: 1.5rem;
   `}
 `
