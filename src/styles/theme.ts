@@ -27,11 +27,13 @@ export const theme = {
     text: '#8FA7B3',
     base: '#5C8599',
     input: '#F5F8FA',
+    button: '#12afcb',
     border: '#d3e2e5',
     'blue-low': '#D1EDF2',
     'red-low': '#FFE4EE',
     'green-low': '#EDFFF6',
-    'blue-hover': '#17d6db'
+    'blue-hover': '#17d6db',
+    'green-hover': '#36cf82'
   },
   layers: {
     base: 10,
