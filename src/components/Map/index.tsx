@@ -1,28 +1,67 @@
+import { LeafletMouseEvent } from 'leaflet'
 import 'leaflet/dist/leaflet.css'
-import { MapContainer, TileLayer } from 'react-leaflet'
+import Link from 'next/link'
+import {
+  MapContainer,
+  TileLayer,
+  MapContainerProps,
+  useMapEvents,
+  Marker,
+  Popup
+} from 'react-leaflet'
+import { mapIcon } from 'utils/map-icon'
 
 import * as S from './styles'
+
+type PositionProps = {
+  longitude: number
+  latitude: number
+}
+
+type OrphanageProps = {
+  id: number
+  name: string
+  latitude: number
+  longitude: number
+}
 
 export type MapProps = {
   initialLatitude: number
   initialLongitude: number
-  height?: string
-}
+  height?: string | number
+  mapOnForm?: boolean
+  position?: PositionProps
+  orphanages?: OrphanageProps[]
+  handleSelectOnMap?: (event: LeafletMouseEvent) => void
+} & MapContainerProps
 
 export default function Map({
   initialLatitude,
   initialLongitude,
-  height
+  height,
+  handleSelectOnMap,
+  mapOnForm,
+  position,
+  orphanages,
+  ...rest
 }: MapProps) {
   const MAPBOX_TOKEN = process.env.NEXT_PUBLIC_MAPBOX_TOKEN
+  function ClickComponent() {
+    useMapEvents({
+      click: event => handleSelectOnMap(event)
+    })
+
+    return null
+  }
 
   return (
-    <S.Container>
+    <S.Container mapOnForm={!!mapOnForm}>
       <MapContainer
         center={[initialLatitude, initialLongitude]}
         zoom={15}
         zoomControl={false}
         style={{ width: '100%', height: `${height ?? '100%'}` }}
+        {...rest}
       >
         <TileLayer
           url={
@@ -31,6 +70,36 @@ export default function Map({
               : 'https://a.tile.openstreetmap.org/{z}/{x}/{y}.png'
           }
         />
+
+        {!!position && position.latitude !== 0 && (
+          <Marker
+            interactive={false}
+            icon={mapIcon}
+            position={[position.latitude, position.longitude]}
+          />
+        )}
+
+        {!!handleSelectOnMap && <ClickComponent />}
+
+        {orphanages &&
+          orphanages.map(orphanage => {
+            return (
+              <Marker
+                key={orphanage.id}
+                icon={mapIcon}
+                position={[orphanage.latitude, orphanage.longitude]}
+              >
+                <Popup closeButton={false} minWidth={248} className="map-popup">
+                  {orphanage.name}
+                  <Link href={`/orphanages/${orphanage.id}`}>
+                    <a>
+                      <S.ArrowRight />
+                    </a>
+                  </Link>
+                </Popup>
+              </Marker>
+            )
+          })}
       </MapContainer>
     </S.Container>
   )

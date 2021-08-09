@@ -1,11 +1,25 @@
+import { FiArrowRight } from 'react-icons/fi'
 import styled, { css } from 'styled-components'
+import { MapProps } from '.'
 
-export const Container = styled.div`
-  ${({ theme }) => css`
+type ModifierProps = Pick<MapProps, 'mapOnForm'>
+
+const containerModifier = {
+  mapOnForm: () => css`
+    width: 100%;
+    height: 18rem;
+    margin-bottom: 1.5rem;
+  `
+}
+
+export const Container = styled.div<ModifierProps>`
+  ${({ theme, mapOnForm }) => css`
     width: 100vw;
     height: 100vh;
     position: relative;
     display: flex;
+
+    ${mapOnForm && containerModifier.mapOnForm()}
 
     .map-popup .leaflet-popup-content-wrapper {
       background: rgba(255, 255, 255, 0.8);
@@ -35,4 +49,9 @@ export const Container = styled.div`
       display: none;
     }
   `}
+`
+export const ArrowRight = styled(FiArrowRight)`
+  width: 3rem;
+  height: 3rem;
+  color: white;
 `
