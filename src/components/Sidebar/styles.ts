@@ -8,7 +8,7 @@ export const Container = styled.aside`
     padding: 3rem 2rem;
     width: 7rem;
     height: 100%;
-    background: ${theme.gradient};
+    background: ${theme.colors['blue-hover']};
 
     display: flex;
     flex-direction: column;
@@ -36,7 +36,7 @@ export const GoBack = styled.div`
       transition: background-color ${theme.transition.fast};
 
       &:hover {
-        background: ${theme.colors['blue-hover']};
+        background: #17d6eb;
       }
     }
   `}
