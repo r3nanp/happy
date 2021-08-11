@@ -9,7 +9,7 @@ export const Container = styled.div`
     display: flex;
 
     .create-orphanage {
-      z-index: 1000;
+      z-index: ${theme.layers.alwaysOnTop};
       position: absolute;
       right: 40px;
       bottom: 40px;
