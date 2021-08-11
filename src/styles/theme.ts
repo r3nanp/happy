@@ -40,7 +40,7 @@ export const theme = {
     menu: 20,
     overlay: 30,
     modal: 40,
-    alwaysOnTop: 50
+    alwaysOnTop: 1000
   },
   gradient: 'linear-gradient(329.54deg, #29B6D1 0%, #00C7C7 100%)',
   transition: {
