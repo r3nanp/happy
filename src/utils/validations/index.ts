@@ -12,6 +12,7 @@ type InputValues = {
   openingHours: string
   instructions: string
   openOnWeekends: boolean
+  images: File[]
 }
 
 const fieldsValidations = {
@@ -21,7 +22,8 @@ const fieldsValidations = {
   longitude: Joi.number().required(),
   openingHours: Joi.string().min(4).required(),
   instructions: Joi.string().min(4).required(),
-  openOnWeekends: Joi.boolean().required()
+  openOnWeekends: Joi.boolean().required(),
+  images: Joi.array().required()
 }
 
 function getFieldErrors(objError: Joi.ValidationResult) {
