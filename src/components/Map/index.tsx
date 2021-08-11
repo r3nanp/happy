@@ -55,7 +55,7 @@ export default function Map({
   }
 
   return (
-    <S.Container mapOnForm={!!mapOnForm}>
+    <S.Container mapOnForm={mapOnForm}>
       <MapContainer
         center={[initialLatitude, initialLongitude]}
         zoom={15}
@@ -101,6 +101,12 @@ export default function Map({
             )
           })}
       </MapContainer>
+
+      {mapOnForm && (
+        <div className="map-helper">
+          <p>Clique no mapa para adicionar a localização</p>
+        </div>
+      )}
     </S.Container>
   )
 }

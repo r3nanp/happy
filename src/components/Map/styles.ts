@@ -9,6 +9,9 @@ const containerModifier = {
     width: 100%;
     height: 18rem;
     margin-bottom: 1.5rem;
+  `,
+  container: () => css`
+    border-radius: 1.5rem;
   `
 }
 
@@ -19,7 +22,29 @@ export const Container = styled.div<ModifierProps>`
     position: relative;
     display: flex;
 
-    ${mapOnForm && containerModifier.mapOnForm()}
+    ${mapOnForm && containerModifier.mapOnForm}
+
+    .leaflet-container {
+      ${mapOnForm && containerModifier.container}
+    }
+
+    .map-helper {
+      position: absolute;
+      bottom: 0;
+      z-index: ${theme.layers.alwaysOnTop};
+      width: 100%;
+      padding: 1rem;
+      border-radius: 0 0 1.5rem 1.5rem;
+      text-align: center;
+      background: ${theme.colors.input};
+
+      p {
+        font-size: ${theme.font.sizes.small};
+        font-weight: ${theme.font.bold};
+        color: #0089a5;
+        line-height: 1.5rem;
+      }
+    }
 
     .map-popup .leaflet-popup-content-wrapper {
       background: rgba(255, 255, 255, 0.8);
