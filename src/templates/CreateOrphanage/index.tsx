@@ -1,6 +1,14 @@
-import { FormEvent, useCallback, useEffect, useMemo, useState } from 'react'
-import { LeafletMouseEvent } from 'leaflet'
+import {
+  ChangeEvent,
+  FormEvent,
+  useCallback,
+  useEffect,
+  useMemo,
+  useState
+} from 'react'
+import type { LeafletMouseEvent } from 'leaflet'
 import Router from 'next/router'
+import Image from 'next/image'
 import dynamic from 'next/dynamic'
 import { createOrphanageValidation, FieldErrors } from 'utils/validations'
 
@@ -35,15 +43,34 @@ export function CreateOrphanageTemplate() {
     openingHours: ''
   })
 
-  const [openOnWeekends, setOpenOnWeekends] = useState(true)
+  const [openOnWeekends, setOpenOnWeekends] = useState(false)
   const [fieldError, setFieldError] = useState<FieldErrors>({})
 
-  // const [images, setImages] = useState<File[]>([])
-  // const [previewImages, setPreviewImages] = useState<string[]>([])
+  const [images, setImages] = useState<File[]>([])
+  const [previewImages, setPreviewImages] = useState<string[]>([])
 
-  const handleInput = (field: string, value: string) => {
+  const handleInput = useCallback((field: string, value: string) => {
     setValues(state => ({ ...state, [field]: value }))
-  }
+  }, [])
+
+  const handleSelectImages = useCallback(
+    (event: ChangeEvent<HTMLInputElement>) => {
+      if (!event.target.files) {
+        return
+      }
+
+      const selectedImages = Array.from(event.target.files)
+
+      setImages(selectedImages)
+
+      const selectedImagesPreview = selectedImages.map(image => {
+        return URL.createObjectURL(image)
+      })
+
+      setPreviewImages(selectedImagesPreview)
+    },
+    []
+  )
 
   const handleSelectOnMap = useCallback((event: LeafletMouseEvent) => {
     const { lng: longitude, lat: latitude } = event.latlng
@@ -68,7 +95,8 @@ export function CreateOrphanageTemplate() {
         longitude,
         openingHours,
         instructions,
-        openOnWeekends
+        openOnWeekends,
+        images
       }
 
       const errors = createOrphanageValidation(inputValues)
@@ -90,9 +118,13 @@ export function CreateOrphanageTemplate() {
       data.append('openingHours', openingHours)
       data.append('openOnWeekends', String(openOnWeekends))
 
-      Router.push('/orphanages')
+      images.forEach(image => {
+        data.append('images', image)
+      })
+
+      Router.push('/success')
     },
-    [openOnWeekends, position, values]
+    [images, openOnWeekends, position, values]
   )
 
   useEffect(() => {
@@ -142,6 +174,34 @@ export function CreateOrphanageTemplate() {
               onInputChange={value => handleInput('about', value)}
               error={fieldError?.about}
             />
+
+            <label htmlFor="images">Fotos</label>
+
+            <S.ImageContainer>
+              {previewImages.map(image => {
+                return (
+                  <div key={values.name} className="image-wrapper">
+                    <Image
+                      width={96}
+                      height={96}
+                      src={image}
+                      alt={values.name}
+                      objectFit="cover"
+                    />
+                  </div>
+                )
+              })}
+
+              <label htmlFor="images" className="new-image">
+                <S.PlusIcon />
+              </label>
+              <input
+                id="images"
+                multiple
+                type="file"
+                onChange={handleSelectImages}
+              />
+            </S.ImageContainer>
           </S.Register>
 
           <S.Visit>
@@ -161,7 +221,7 @@ export function CreateOrphanageTemplate() {
               error={fieldError?.openingHours}
             />
 
-            <label className="open-on-weekends" htmlFor="open-on-weekends">
+            <label htmlFor="open-on-weekends">
               Funciona nos finais de semana?
             </label>
             <S.ButtonSelect>

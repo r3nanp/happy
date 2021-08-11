@@ -1,3 +1,4 @@
+import { FiPlus } from 'react-icons/fi'
 import styled, { css, DefaultTheme } from 'styled-components'
 
 export const Container = styled.main`
@@ -6,18 +7,6 @@ export const Container = styled.main`
 
 export const Wrapper = styled.div`
   flex: 1;
-`
-
-export const Form = styled.form`
-  ${({ theme }) => css`
-    width: 44rem;
-    margin: 4rem auto;
-    background: ${theme.colors.white};
-    border: 1px solid #d3e2e5;
-    border-radius: 1.5rem;
-    padding: 4rem 5rem;
-    overflow: hidden;
-  `}
 `
 
 const modifier = {
@@ -30,8 +19,47 @@ const modifier = {
     border-bottom: 1px solid #d3e2e5;
     margin-bottom: 2.5rem;
     padding-bottom: 1.5rem;
+  `,
+  label: (theme: DefaultTheme) => css`
+    display: flex;
+    color: ${theme.colors.text};
+    font-weight: ${theme.font.bold};
+    margin-bottom: 1rem;
+    line-height: 1.5rem;
   `
 }
+
+export const Form = styled.form`
+  ${({ theme }) => css`
+    width: 44rem;
+    margin: 4rem auto;
+    background: ${theme.colors.white};
+    border: 1px solid #d3e2e5;
+    border-radius: 1.5rem;
+    padding: 4rem 5rem;
+    overflow: hidden;
+
+    label {
+      ${modifier.label(theme)}
+    }
+
+    input[type='file'] {
+      visibility: hidden;
+    }
+
+    .new-image {
+      width: 100%;
+      height: 6rem;
+      background: ${theme.colors.input};
+      border: 1px dashed #96d2f0;
+      border-radius: 1.5rem;
+      cursor: pointer;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  `}
+`
 
 export const Register = styled.fieldset`
   ${({ theme }) => css`
@@ -43,6 +71,19 @@ export const Register = styled.fieldset`
   `}
 `
 
+export const ImageContainer = styled.div`
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 1rem;
+
+  .image-wrapper {
+    width: 100%;
+    height: 6rem;
+    object-fit: cover;
+    border-radius: 1.5rem;
+  }
+`
+
 export const Visit = styled.fieldset`
   ${({ theme }) => css`
     margin-top: 4rem;
@@ -50,14 +91,6 @@ export const Visit = styled.fieldset`
 
     legend {
       ${modifier.legend(theme)}
-    }
-
-    .open-on-weekends {
-      display: flex;
-      color: ${theme.colors.text};
-      font-weight: ${theme.font.bold};
-      margin-bottom: 1rem;
-      line-height: 1.5rem;
     }
   `}
 `
@@ -93,4 +126,9 @@ export const ButtonSelect = styled.div`
       border-left: 0;
     }
   `}
+`
+
+export const PlusIcon = styled(FiPlus)`
+  size: 24;
+  color: #15b6d6;
 `
