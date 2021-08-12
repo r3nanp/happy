@@ -13,7 +13,7 @@ export const GlobalStyle: GlobalStyleComponent<
   GlobalStylesProps,
   DefaultTheme
 > = createGlobalStyle`
-  ${({ theme }) => css`
+  ${({ theme, removeBg }) => css`
     * {
       margin: 0;
       padding: 0;
@@ -33,6 +33,11 @@ export const GlobalStyle: GlobalStyleComponent<
     body {
       color: ${theme.colors.white};
       background: ${theme.colors.bg};
+
+      ${!removeBg &&
+      css`
+        background-color: ${theme.colors.white};
+      `}
     }
 
     body,
