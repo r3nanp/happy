@@ -5,7 +5,7 @@ export const Container = styled.main`
   display: flex;
 `
 
-export const Wrapper = styled.div`
+export const Wrapper = styled.section`
   flex: 1;
 `
 

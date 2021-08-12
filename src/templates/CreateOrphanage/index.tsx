@@ -53,6 +53,11 @@ export function CreateOrphanageTemplate() {
     setValues(state => ({ ...state, [field]: value }))
   }, [])
 
+  // Next.js image loader to preview images
+  const myLoader = ({ src }) => {
+    return src
+  }
+
   const handleSelectImages = useCallback(
     (event: ChangeEvent<HTMLInputElement>) => {
       if (!event.target.files) {
@@ -178,10 +183,11 @@ export function CreateOrphanageTemplate() {
             <label htmlFor="images">Fotos</label>
 
             <S.ImageContainer>
-              {previewImages.map(image => {
+              {previewImages.map((image, index) => {
                 return (
-                  <div key={values.name} className="image-wrapper">
+                  <div key={index} className="image-wrapper">
                     <Image
+                      loader={myLoader}
                       width={96}
                       height={96}
                       src={image}
