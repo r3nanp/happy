@@ -1,4 +1,5 @@
 import Router from 'next/router'
+import Image from 'next/image'
 import { Button } from 'components/Button'
 import * as S from './styles'
 
@@ -21,7 +22,7 @@ export function ActionTemplate({
         {isExcludePage ? (
           <>
             <h1>Excluir!</h1>
-            <p>Você tem certeza que quer excluir {orphanageName}</p>
+            <p>Você tem certeza que quer excluir {orphanageName}?</p>
           </>
         ) : (
           <>
@@ -33,7 +34,16 @@ export function ActionTemplate({
           </>
         )}
       </S.Content>
-      <S.ImageWrapper></S.ImageWrapper>
+      <S.ImageWrapper>
+        <Image
+          src={
+            isExcludePage ? '/img/exclude-child.svg' : '/img/success-child.svg'
+          }
+          alt="Ilustração de uma criança"
+          width={400}
+          height={400}
+        />
+      </S.ImageWrapper>
     </S.Container>
   )
 }
