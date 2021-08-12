@@ -6,13 +6,20 @@ export default {
   component: Input,
   args: {
     label: 'E-mail',
-    name: 'email',
-    placeholder: 'john.cage@gmail.com',
+    name: 'Email',
+    initialValue: '',
     disabled: false
+  },
+  argTypes: {
+    onInput: { action: 'changed' }
   }
 } as Meta
 
-export const Default: Story<InputProps> = args => <Input {...args} />
+export const Default: Story<InputProps> = args => (
+  <div style={{ maxWidth: 300, padding: 15 }}>
+    <Input {...args} />
+  </div>
+)
 
 export const withError: Story<InputProps> = args => <Input {...args} />
 

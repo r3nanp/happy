@@ -1,0 +1,20 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Input /> Renders with error 1`] = `
+.c0 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  color: #8FA7B3;
+  font-weight: 800;
+  margin-bottom: 0.5rem;
+  line-height: 1.5rem;
+}
+
+<label
+  class="c0"
+>
+  Error
+</label>
+`;
