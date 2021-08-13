@@ -3,9 +3,9 @@
   "short_name": "Happy",
   "icons": [
     {
-      "src": "/img/icon-144.png",
+      "src": "/img/icon-192.png",
       "type": "image/png",
-      "sizes": "144x144"
+      "sizes": "192x192"
     },
     {
       "src": "/img/icon-512.png",
@@ -13,9 +13,9 @@
       "sizes": "512x512"
     }
   ],
-  "background_color": "#06092B",
+  "background_color": "#EBF2F5",
   "description": "Leve felicidade para o mundo.",
   "display": "fullscreen",
   "start_url": "/",
-  "theme_color": "#06092B"
+  "theme_color": "#15C3D6"
 }
