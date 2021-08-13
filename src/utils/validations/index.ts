@@ -23,7 +23,9 @@ const fieldsValidations = {
   openingHours: Joi.string().min(4).required(),
   instructions: Joi.string().min(4).required(),
   openOnWeekends: Joi.boolean().required(),
-  images: Joi.array().required()
+  images: Joi.array()
+    .items(Joi.object({ path: Joi.string().required() }))
+    .required()
 }
 
 function getFieldErrors(objError: Joi.ValidationResult) {
