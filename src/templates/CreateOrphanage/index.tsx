@@ -13,8 +13,8 @@ import dynamic from 'next/dynamic'
 import { createOrphanageValidation, FieldErrors } from 'utils/validations'
 
 import { Button } from 'components/Button'
+import { Content } from 'components/Content'
 import { Input } from 'components/Input'
-import { Sidebar } from 'components/Sidebar'
 import { TextField } from 'components/TextField'
 import { Loading } from 'components/Loading'
 
@@ -147,110 +147,106 @@ export function CreateOrphanageTemplate() {
   }, [])
 
   return (
-    <S.Container>
-      <Sidebar />
+    <Content>
+      <S.Form onSubmit={handleSubmit}>
+        <S.Register>
+          <legend>Dados</legend>
+          <Map
+            initialLatitude={position.latitude}
+            initialLongitude={position.longitude}
+            handleSelectOnMap={handleSelectOnMap}
+            showSmallMap={true}
+            height={280}
+            position={{
+              latitude: position.latitude,
+              longitude: position.longitude
+            }}
+          />
 
-      <S.Wrapper>
-        <S.Form onSubmit={handleSubmit}>
-          <S.Register>
-            <legend>Dados</legend>
-            <Map
-              height={280}
-              initialLatitude={position.latitude}
-              initialLongitude={position.longitude}
-              handleSelectOnMap={handleSelectOnMap}
-              mapOnForm={true}
-              position={{
-                latitude: position.latitude,
-                longitude: position.longitude
-              }}
-            />
+          <Input
+            label="Nome"
+            name="name"
+            onInputChange={value => handleInput('name', value)}
+            error={fieldError?.name}
+          />
 
-            <Input
-              label="Nome"
-              name="name"
-              onInputChange={value => handleInput('name', value)}
-              error={fieldError?.name}
-            />
+          <TextField
+            label="Sobre"
+            name="about"
+            onInputChange={value => handleInput('about', value)}
+            error={fieldError?.about}
+          />
 
-            <TextField
-              label="Sobre"
-              name="about"
-              onInputChange={value => handleInput('about', value)}
-              error={fieldError?.about}
-            />
+          <label htmlFor="images">Fotos</label>
 
-            <label htmlFor="images">Fotos</label>
+          <S.ImageContainer>
+            {previewImages.map((image, index) => {
+              return (
+                <div key={index} className="image-wrapper">
+                  <Image
+                    loader={myLoader}
+                    width={96}
+                    height={96}
+                    src={image}
+                    alt={values.name}
+                    objectFit="cover"
+                  />
+                </div>
+              )
+            })}
 
-            <S.ImageContainer>
-              {previewImages.map((image, index) => {
-                return (
-                  <div key={index} className="image-wrapper">
-                    <Image
-                      loader={myLoader}
-                      width={96}
-                      height={96}
-                      src={image}
-                      alt={values.name}
-                      objectFit="cover"
-                    />
-                  </div>
-                )
-              })}
-
-              <label htmlFor="images" className="new-image">
-                <S.PlusIcon />
-              </label>
-              <input
-                id="images"
-                multiple
-                type="file"
-                onChange={handleSelectImages}
-              />
-            </S.ImageContainer>
-          </S.Register>
-
-          <S.Visit>
-            <legend>Visitação</legend>
-
-            <TextField
-              label="Instruções"
-              name="instructions"
-              onInputChange={value => handleInput('instructions', value)}
-              error={fieldError?.instructions}
-            />
-
-            <Input
-              label="Horário de funcionamento"
-              name="openingHours"
-              onInputChange={value => handleInput('openingHours', value)}
-              error={fieldError?.openingHours}
-            />
-
-            <label htmlFor="open-on-weekends">
-              Funciona nos finais de semana?
+            <label htmlFor="images" className="new-image">
+              <S.PlusIcon />
             </label>
-            <S.ButtonSelect>
-              <button
-                type="button"
-                className={openOnWeekends ? 'open' : ''}
-                onClick={() => setOpenOnWeekends(true)}
-              >
-                Sim
-              </button>
-              <button
-                type="button"
-                className={!openOnWeekends ? 'not-open' : ''}
-                onClick={() => setOpenOnWeekends(false)}
-              >
-                Não
-              </button>
-            </S.ButtonSelect>
+            <input
+              id="images"
+              multiple
+              type="file"
+              onChange={handleSelectImages}
+            />
+          </S.ImageContainer>
+        </S.Register>
 
-            <Button type="submit">Confirmar</Button>
-          </S.Visit>
-        </S.Form>
-      </S.Wrapper>
-    </S.Container>
+        <S.Visit>
+          <legend>Visitação</legend>
+
+          <TextField
+            label="Instruções"
+            name="instructions"
+            onInputChange={value => handleInput('instructions', value)}
+            error={fieldError?.instructions}
+          />
+
+          <Input
+            label="Horário de funcionamento"
+            name="openingHours"
+            onInputChange={value => handleInput('openingHours', value)}
+            error={fieldError?.openingHours}
+          />
+
+          <label htmlFor="open-on-weekends">
+            Funciona nos finais de semana?
+          </label>
+          <S.ButtonSelect>
+            <button
+              type="button"
+              className={openOnWeekends ? 'open' : ''}
+              onClick={() => setOpenOnWeekends(true)}
+            >
+              Sim
+            </button>
+            <button
+              type="button"
+              className={!openOnWeekends ? 'not-open' : ''}
+              onClick={() => setOpenOnWeekends(false)}
+            >
+              Não
+            </button>
+          </S.ButtonSelect>
+
+          <Button type="submit">Confirmar</Button>
+        </S.Visit>
+      </S.Form>
+    </Content>
   )
 }

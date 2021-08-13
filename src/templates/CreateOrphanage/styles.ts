@@ -1,13 +1,5 @@
-import { FiPlus } from 'react-icons/fi'
 import styled, { css, DefaultTheme } from 'styled-components'
-
-export const Container = styled.main`
-  display: flex;
-`
-
-export const Wrapper = styled.section`
-  flex: 1;
-`
+import { FiPlus } from 'react-icons/fi'
 
 const modifier = {
   legend: (theme: DefaultTheme) => css`
@@ -31,14 +23,6 @@ const modifier = {
 
 export const Form = styled.form`
   ${({ theme }) => css`
-    width: 44rem;
-    margin: 4rem auto;
-    background: ${theme.colors.white};
-    border: 1px solid #d3e2e5;
-    border-radius: 1.5rem;
-    padding: 4rem 5rem;
-    overflow: hidden;
-
     label {
       ${modifier.label(theme)}
     }
@@ -78,9 +62,11 @@ export const ImageContainer = styled.div`
 
   .image-wrapper {
     width: 100%;
-    height: 6rem;
-    object-fit: cover;
-    border-radius: 1.5rem;
+    height: 7rem;
+    img {
+      object-fit: cover;
+      border-radius: 1.5rem;
+    }
   }
 `
 
