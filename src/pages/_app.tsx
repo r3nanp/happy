@@ -1,7 +1,10 @@
 import { AppProps } from 'next/app'
+import Head from 'next/head'
 import { ThemeProvider } from 'styled-components'
 
-import Head from 'next/head'
+import { DefaultSeo } from 'next-seo'
+import SEO from '../../next-seo.config'
+
 import { GlobalStyle } from 'styles/global'
 import { theme } from 'styles/theme'
 
@@ -15,6 +18,8 @@ function MyApp({ Component, pageProps }: AppProps) {
         <link rel="manifest" href="/manifest.json" />
         <meta name="description" content="Leve felicidade para o mundo!" />
       </Head>
+
+      <DefaultSeo {...SEO} />
 
       <GlobalStyle />
       <Component {...pageProps} />
