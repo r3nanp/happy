@@ -3,6 +3,11 @@
   "short_name": "Happy",
   "icons": [
     {
+      "src": "/img/icon-144.png",
+      "type": "image/png",
+      "sizes": "144x144"
+    },
+    {
       "src": "/img/icon-192.png",
       "type": "image/png",
       "sizes": "192x192"
