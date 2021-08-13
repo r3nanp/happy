@@ -29,7 +29,8 @@ export type MapProps = {
   initialLatitude: number
   initialLongitude: number
   height?: string | number
-  mapOnForm?: boolean
+  showSmallMap?: boolean
+  isGoogleMaps?: boolean
   position?: PositionProps
   orphanages?: OrphanageProps[]
   handleSelectOnMap?: (event: LeafletMouseEvent) => void
@@ -40,7 +41,8 @@ export default function Map({
   initialLongitude,
   height,
   handleSelectOnMap,
-  mapOnForm,
+  showSmallMap,
+  isGoogleMaps = false,
   position,
   orphanages,
   ...rest
@@ -55,7 +57,7 @@ export default function Map({
   }
 
   return (
-    <S.Container mapOnForm={mapOnForm}>
+    <S.Container showSmallMap={showSmallMap}>
       <MapContainer
         center={[initialLatitude, initialLongitude]}
         zoom={15}
@@ -102,10 +104,21 @@ export default function Map({
           })}
       </MapContainer>
 
-      {mapOnForm && (
-        <div className="map-helper">
-          <p>Clique no mapa para adicionar a localização</p>
-        </div>
+      {showSmallMap && (
+        <footer className="map-helper">
+          {isGoogleMaps ? (
+            <a
+              href={`https://www.google.com/maps/dir/?api=1&destination=${initialLatitude},${initialLongitude}`}
+              target="__blank"
+              rel="noopener noreferrer"
+              className="text"
+            >
+              Ver rotas no Google Maps
+            </a>
+          ) : (
+            <p className="text">Clique no mapa para adicionar a localização</p>
+          )}
+        </footer>
       )}
     </S.Container>
   )

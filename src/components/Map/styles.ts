@@ -2,10 +2,10 @@ import { FiArrowRight } from 'react-icons/fi'
 import styled, { css } from 'styled-components'
 import { MapProps } from '.'
 
-type ModifierProps = Pick<MapProps, 'mapOnForm'>
+type ModifierProps = Pick<MapProps, 'showSmallMap'>
 
 const containerModifier = {
-  mapOnForm: () => css`
+  showSmallMap: () => css`
     width: 100%;
     height: 18rem;
     margin-bottom: 1.5rem;
@@ -16,16 +16,16 @@ const containerModifier = {
 }
 
 export const Container = styled.div<ModifierProps>`
-  ${({ theme, mapOnForm }) => css`
+  ${({ theme, showSmallMap }) => css`
     width: 100vw;
     height: 100vh;
     position: relative;
     display: flex;
 
-    ${mapOnForm && containerModifier.mapOnForm}
+    ${showSmallMap && containerModifier.showSmallMap}
 
     .leaflet-container {
-      ${mapOnForm && containerModifier.container}
+      ${showSmallMap && containerModifier.container}
     }
 
     .map-helper {
@@ -38,7 +38,7 @@ export const Container = styled.div<ModifierProps>`
       text-align: center;
       background: ${theme.colors.input};
 
-      p {
+      .text {
         font-size: ${theme.font.sizes.small};
         font-weight: ${theme.font.bold};
         color: #0089a5;
