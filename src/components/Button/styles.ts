@@ -1,4 +1,5 @@
 import styled, { css, DefaultTheme } from 'styled-components'
+import { motion } from 'framer-motion'
 import { ButtonProps } from '.'
 
 type ModifierProps = Pick<ButtonProps, 'disabled' | 'isSuccessPage'>
@@ -18,7 +19,7 @@ export const modifier = {
   `
 }
 
-export const Button = styled.button<ModifierProps>`
+export const Button = styled(motion.button)<ModifierProps>`
   ${({ theme, disabled, isSuccessPage }) => css`
     margin-top: 4rem;
     width: 100%;
@@ -26,6 +27,7 @@ export const Button = styled.button<ModifierProps>`
     border: 0;
     background: ${theme.colors.green};
     border-radius: 1.5rem;
+    padding: 0.8rem 3.2rem;
     color: ${theme.colors.white};
     font-weight: ${theme.font.bold};
     display: flex;
