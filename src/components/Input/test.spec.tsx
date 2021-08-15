@@ -59,11 +59,42 @@ describe('<Input />', () => {
     expect(onInputChange).not.toHaveBeenCalled()
   })
 
+  it('Should render as a textarea', () => {
+    render(<Input as="textarea" />)
+    const input = screen.getByRole('textbox')
+
+    expect(input).toHaveStyle({
+      resize: 'vertical',
+      padding: '1rem',
+      'min-height': '7.5rem'
+    })
+  })
+
   it('Renders with error', () => {
     const { container } = render(<Input label="Error" error="Error message" />)
 
     expect(screen.getByText('Error message')).toBeInTheDocument()
 
     expect(container.firstChild).toMatchSnapshot()
+  })
+
+  it('Is accessible by tab', () => {
+    render(<Input label="Input" name="Input" />)
+
+    const input = screen.getByLabelText('Input')
+    expect(document.body).toHaveFocus()
+
+    userEvent.tab()
+    expect(input).toHaveFocus()
+  })
+
+  it('Is not accessible by tab when disabled', () => {
+    render(<Input label="Input" name="Input" disabled />)
+
+    const input = screen.getByLabelText('Input')
+    expect(document.body).toHaveFocus()
+
+    userEvent.tab()
+    expect(input).not.toHaveFocus()
   })
 })

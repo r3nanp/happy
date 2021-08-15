@@ -1,7 +1,17 @@
 import styled, { css } from 'styled-components'
 import { InputProps } from '.'
 
-type ModifierProps = Pick<InputProps, 'disabled'> & { error?: boolean }
+type ModifierProps = Pick<InputProps, 'disabled' | 'as'> & { error?: boolean }
+
+const modifier = {
+  isTextarea: () => css`
+    min-height: 7.5rem;
+    max-height: 15rem;
+    resize: vertical;
+    padding: 1rem;
+    line-height: 1.8rem;
+  `
+}
 
 export const Label = styled.label`
   ${({ theme }) => css`
@@ -14,7 +24,7 @@ export const Label = styled.label`
 `
 
 export const Input = styled.input<ModifierProps>`
-  ${({ theme, error, disabled }) => css`
+  ${({ theme, error, disabled, as }) => css`
     width: 100%;
     background: ${theme.colors.input};
     border: 1px solid #d3e2e5;
@@ -33,6 +43,8 @@ export const Input = styled.input<ModifierProps>`
     &:focus-within {
       box-shadow: 0 0 0.5rem ${theme.colors.bg};
     }
+
+    ${as === 'textarea' && modifier.isTextarea()}
   `}
 `
 

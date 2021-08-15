@@ -1,5 +1,18 @@
-import { ChangeEvent, InputHTMLAttributes, useCallback, useState } from 'react'
+import {
+  ChangeEvent,
+  ElementType,
+  InputHTMLAttributes,
+  TextareaHTMLAttributes,
+  useCallback,
+  useState
+} from 'react'
 import * as S from './styles'
+
+type InputTypes =
+  | InputHTMLAttributes<HTMLInputElement>
+  | TextareaHTMLAttributes<HTMLTextAreaElement>
+
+type OnChangeProps = HTMLInputElement | HTMLTextAreaElement
 
 export type InputProps = {
   onInputChange?: (value: string) => void
@@ -7,7 +20,8 @@ export type InputProps = {
   error?: string
   initialValue?: string
   disabled?: boolean
-} & InputHTMLAttributes<HTMLInputElement>
+  as?: ElementType
+} & InputTypes
 
 export function Input({
   label,
@@ -21,7 +35,7 @@ export function Input({
   const [value, setValue] = useState(initialValue)
 
   const onChange = useCallback(
-    (event: ChangeEvent<HTMLInputElement>) => {
+    (event: ChangeEvent<OnChangeProps>) => {
       const newValue = event.currentTarget.value
       setValue(newValue)
 
