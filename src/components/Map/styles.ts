@@ -1,5 +1,7 @@
-import { FiArrowRight } from 'react-icons/fi'
 import styled, { css } from 'styled-components'
+import { darken } from 'polished'
+import { FiArrowRight } from 'react-icons/fi'
+
 import { MapProps } from '.'
 
 type ModifierProps = Pick<MapProps, 'showSmallMap'>
@@ -61,14 +63,19 @@ export const Container = styled.div<ModifierProps>`
       align-items: center;
     }
     .map-popup .leaflet-popup-content a {
-      width: 2.5rem;
-      height: 2.5rem;
-      background: ${theme.colors['blue-hover']};
+      width: 3rem;
+      height: 3rem;
+      background: ${theme.colors.blue};
       box-shadow: ${theme.shadows};
-      border-radius: 0.8rem;
+      border-radius: 25%;
       display: flex;
       align-items: center;
       justify-content: center;
+      transition: background-color ${theme.transition.fast};
+
+      &:hover {
+        background: ${darken(0.2, theme.colors['blue-hover'])};
+      }
     }
     .map-popup .leaflet-popup-tip-container {
       display: none;

@@ -48,6 +48,7 @@ export default function Map({
   ...rest
 }: MapProps) {
   const MAPBOX_TOKEN = process.env.NEXT_PUBLIC_MAPBOX_TOKEN
+
   function ClickComponent() {
     useMapEvents({
       click: event => handleSelectOnMap(event)
