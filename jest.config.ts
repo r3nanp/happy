@@ -7,6 +7,8 @@ export default {
     'src/**/*.ts(x)?',
     '**/?(*.)+(spec|test).[tj]s?(x)',
     '!src/**/stories.tsx',
+    '!src/utils/map-icon/*.ts',
+    '!src/services/*.ts',
     '!src/pages/**/*.tsx',
     '!src/styles/**/*.ts',
     '!src/types/**/*.d.ts',
