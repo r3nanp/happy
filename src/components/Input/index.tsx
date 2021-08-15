@@ -8,7 +8,7 @@ import {
 } from 'react'
 import * as S from './styles'
 
-type InputTypes =
+type InputTypesProps =
   | InputHTMLAttributes<HTMLInputElement>
   | TextareaHTMLAttributes<HTMLTextAreaElement>
 
@@ -21,7 +21,7 @@ export type InputProps = {
   initialValue?: string
   disabled?: boolean
   as?: ElementType
-} & InputTypes
+} & InputTypesProps
 
 export function Input({
   label,
