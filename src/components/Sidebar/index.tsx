@@ -1,10 +1,12 @@
-import Router from 'next/router'
+import { useRouter } from 'next/router'
 import Image from 'next/image'
 import * as S from './styles'
 
 export function Sidebar() {
+  const { back } = useRouter()
+
   const goBack = () => {
-    Router.back()
+    back()
   }
 
   return (
