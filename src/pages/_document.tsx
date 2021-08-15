@@ -41,8 +41,10 @@ export default class MyDocument extends Document {
       <Html lang="pt-BR">
         <Head>
           <meta charSet="utf-8" />
-          <meta name="theme-color" content="#ffffff" />
-          <link rel="shortcut icon" href="/favicon.png" />
+          <link rel="shortcut icon" href="/img/icon-512.png" />
+          <link rel="apple-touch-icon" href="/img/icon-512.png" />
+          <link rel="manifest" href="/manifest.json" />
+          <meta name="description" content="Leve felicidade para o mundo!" />
           <link rel="preconnect" href="https://fonts.googleapis.com" />
           <link rel="preconnect" href="https://fonts.gstatic.com" />
           <link
