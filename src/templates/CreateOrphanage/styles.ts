@@ -1,4 +1,5 @@
 import styled, { css, DefaultTheme } from 'styled-components'
+import { motion } from 'framer-motion'
 import { FiPlus } from 'react-icons/fi'
 
 const modifier = {
@@ -21,7 +22,7 @@ const modifier = {
   `
 }
 
-export const Form = styled.form`
+export const Form = styled(motion.form)`
   ${({ theme }) => css`
     label {
       ${modifier.label(theme)}

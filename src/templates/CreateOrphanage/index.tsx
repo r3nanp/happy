@@ -15,9 +15,9 @@ import { createOrphanageValidation, FieldErrors } from 'utils/validations'
 import { Button } from 'components/Button'
 import { Content } from 'components/Content'
 import { Input } from 'components/Input'
-import { TextField } from 'components/TextField'
 import { Loading } from 'components/Loading'
 
+import { container } from 'animations/variants'
 import * as S from './styles'
 
 export function CreateOrphanageTemplate() {
@@ -148,7 +148,12 @@ export function CreateOrphanageTemplate() {
 
   return (
     <Content>
-      <S.Form onSubmit={handleSubmit}>
+      <S.Form
+        initial="hidden"
+        animate="visible"
+        variants={container}
+        onSubmit={handleSubmit}
+      >
         <S.Register>
           <legend>Dados</legend>
           <Map
@@ -170,7 +175,8 @@ export function CreateOrphanageTemplate() {
             error={fieldError?.name}
           />
 
-          <TextField
+          <Input
+            as="textarea"
             label="Sobre"
             name="about"
             onInputChange={value => handleInput('about', value)}
@@ -210,7 +216,8 @@ export function CreateOrphanageTemplate() {
         <S.Visit>
           <legend>Visitação</legend>
 
-          <TextField
+          <Input
+            as="textarea"
             label="Instruções"
             name="instructions"
             onInputChange={value => handleInput('instructions', value)}
@@ -244,7 +251,9 @@ export function CreateOrphanageTemplate() {
             </button>
           </S.ButtonSelect>
 
-          <Button type="submit">Confirmar</Button>
+          <Button scale={1.2} type="submit">
+            Confirmar
+          </Button>
         </S.Visit>
       </S.Form>
     </Content>

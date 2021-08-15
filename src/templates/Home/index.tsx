@@ -1,5 +1,8 @@
 import Link from 'next/link'
 import Image from 'next/image'
+import { motion } from 'framer-motion'
+
+import { pulse } from 'animations/variants'
 import * as S from './styles'
 
 export function HomeTemplate() {
@@ -26,10 +29,15 @@ export function HomeTemplate() {
           <span>Ceará</span>
         </S.Location>
 
-        <Link href="/orphanages">
-          <a className="arrow">
+        <Link href="/orphanages" passHref>
+          <motion.a
+            animate="pulseEffect"
+            variants={pulse}
+            whileHover={{ scale: 1.2 }}
+            className="arrow"
+          >
             <S.ArrowIcon />
-          </a>
+          </motion.a>
         </Link>
       </S.Wrapper>
     </S.Container>

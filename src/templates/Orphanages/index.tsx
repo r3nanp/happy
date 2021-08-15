@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from 'react'
 import dynamic from 'next/dynamic'
 import Image from 'next/image'
 import Link from 'next/link'
+import { motion } from 'framer-motion'
 
 import { Loading } from 'components/Loading'
 import * as S from './styles'
@@ -80,10 +81,10 @@ export function OrphanagesTemplate({ orphanages }: OrphanageProps) {
         orphanages={orphanages}
       />
 
-      <Link href="/orphanage/create-orphanage">
-        <a className="create-orphanage">
+      <Link href="/orphanage/create-orphanage" passHref>
+        <motion.a whileHover={{ scale: 1.2 }} className="create-orphanage">
           <S.PlusIcon />
-        </a>
+        </motion.a>
       </Link>
     </S.Container>
   )
