@@ -7,10 +7,11 @@ import {
   useState
 } from 'react'
 import type { LeafletMouseEvent } from 'leaflet'
-import Router from 'next/router'
+import { useRouter } from 'next/router'
 import Image from 'next/image'
 import dynamic from 'next/dynamic'
 import { createOrphanageValidation, FieldErrors } from 'utils/validations'
+import { api } from 'services/api'
 
 import { Button } from 'components/Button'
 import { Content } from 'components/Content'
@@ -21,6 +22,8 @@ import { container } from 'animations/variants'
 import * as S from './styles'
 
 export function CreateOrphanageTemplate() {
+  const { push } = useRouter()
+
   const Map = useMemo(
     () =>
       dynamic(() => import('components/Map'), {
@@ -108,6 +111,7 @@ export function CreateOrphanageTemplate() {
 
       if (Object.keys(errors).length) {
         setFieldError(errors)
+        console.log(errors)
         return
       }
 
@@ -120,16 +124,18 @@ export function CreateOrphanageTemplate() {
       data.append('longitude', String(longitude))
       data.append('about', about)
       data.append('instructions', instructions)
-      data.append('openingHours', openingHours)
-      data.append('openOnWeekends', String(openOnWeekends))
+      data.append('opening_hours', openingHours)
+      data.append('open_on_weekends', String(openOnWeekends))
 
       images.forEach(image => {
         data.append('images', image)
       })
 
-      Router.push('/success')
+      await api.post('/orphanages', data)
+
+      push('/success')
     },
-    [images, openOnWeekends, position, values]
+    [images, openOnWeekends, position, push, values]
   )
 
   useEffect(() => {
