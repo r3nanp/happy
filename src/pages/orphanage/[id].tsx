@@ -4,7 +4,7 @@ import { OrphanageTemplate } from 'templates/Orphanage'
 
 type Image = {
   id: string
-  path: string
+  url: string
 }
 
 type Orphanage = {
@@ -19,17 +19,21 @@ type Orphanage = {
   images: Image[]
 }
 
-export default function Orphanage(props: Orphanage) {
-  return <OrphanageTemplate {...props} />
+type OrphanageProps = {
+  orphanage: Orphanage
+}
+
+export default function Orphanage({ orphanage }: OrphanageProps) {
+  return <OrphanageTemplate {...orphanage} />
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {
   const { data } = await api.get<Orphanage[]>('/orphanages')
 
-  const paths = data.map(orphanage => {
+  const paths = data.map(path => {
     return {
       params: {
-        id: orphanage.id
+        id: path.id
       }
     }
   })
@@ -43,7 +47,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
 export const getStaticProps: GetStaticProps = async ({ params }) => {
   const { id } = params
 
-  const { data } = await api.get(`/orphanage/${id}`)
+  const { data } = await api.get(`/orphanages/${id}`)
 
   const orphanage = {
     id: data.id,
@@ -52,7 +56,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     longitude: data.longitude,
     about: data.about,
     instructions: data.instructions,
-    opening_hours: data.minutes.padStart(2, '0').split(''),
+    opening_hours: data.opening_hours.padStart(2, '0').split(''),
     open_on_weekends: data.open_on_weekends,
     images: data.images
   }
