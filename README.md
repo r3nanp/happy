@@ -25,13 +25,16 @@
 - styled-components
 - polished
 - react-icons
+- framer-motion
 - Joi
-- axios
 - lottie
+- axios
 - Storybook
 - Jest
 - Testing Library
 - husky
+- next-pwa
+- next-seo
 
 # 🎉 Contributing
 
@@ -41,7 +44,7 @@
 
 Clone repository:
 ```bash
-git clone https://github.com/r3nanp/happy-frontend.git
+git clone https://github.com/r3nanp/happy.git
 ```
 
 At the root of the project, run:
