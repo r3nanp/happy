@@ -45,6 +45,7 @@ export const Container = styled.div<ModifierProps>`
         font-weight: ${theme.font.bold};
         color: #0089a5;
         line-height: 1.5rem;
+        text-decoration: none;
       }
     }
 
