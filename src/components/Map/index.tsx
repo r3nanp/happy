@@ -69,7 +69,7 @@ export default function Map({
         <TileLayer
           url={
             MAPBOX_TOKEN
-              ? `https://api.mapbox.com/styles/v1/mapbox/light-v10/tiles/256/{z}/{x}/{y}@2x?access_token=${process.env.NEXT_PUBLIC_ACCESS_MAPBOX_TOKEN}`
+              ? `https://api.mapbox.com/styles/v1/mapbox/light-v10/tiles/256/{z}/{x}/{y}@2x?access_token=${MAPBOX_TOKEN}`
               : 'https://a.tile.openstreetmap.org/{z}/{x}/{y}.png'
           }
         />
@@ -94,7 +94,7 @@ export default function Map({
               >
                 <Popup closeButton={false} minWidth={248} className="map-popup">
                   {orphanage.name}
-                  <Link href={`/orphanages/${orphanage.id}`}>
+                  <Link href={`/orphanage/${orphanage.id}`}>
                     <a>
                       <S.ArrowRight />
                     </a>
