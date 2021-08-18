@@ -8,6 +8,6 @@ module.exports = withPWA({
     dest: 'public'
   },
   images: {
-    domains: ['localhost']
+    domains: ['localhost', 'happy-server-r3nanp.herokuapp.com']
   }
 })
