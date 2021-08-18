@@ -1,4 +1,5 @@
 import { GetStaticProps } from 'next'
+import { api } from 'services/api'
 import { OrphanagesTemplate } from 'templates/Orphanages'
 
 type Orphanage = {
@@ -17,16 +18,11 @@ export default function Orphanages({ orphanages }: OrphanagesProps) {
 }
 
 export const getStaticProps: GetStaticProps = async () => {
+  const { data } = await api.get('/orphanages')
+
   return {
     props: {
-      orphanages: [
-        {
-          id: 1,
-          name: 'Reasnkdsand',
-          latitude: -3.7305253,
-          longitude: -38.5311193
-        }
-      ]
+      orphanages: data
     }
   }
 }
