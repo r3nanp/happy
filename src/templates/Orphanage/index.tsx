@@ -8,7 +8,7 @@ import * as S from './styles'
 
 type Image = {
   id: string
-  path: string
+  url: string
 }
 
 export type OrphanageProps = {
@@ -22,16 +22,18 @@ export type OrphanageProps = {
   images: Image[]
 }
 
-export function OrphanageTemplate({
-  name,
-  about,
-  latitude,
-  longitude,
-  opening_hours,
-  open_on_weekends,
-  images,
-  instructions
-}: OrphanageProps) {
+export function OrphanageTemplate(props: OrphanageProps) {
+  const {
+    name,
+    latitude,
+    longitude,
+    about,
+    instructions,
+    opening_hours,
+    open_on_weekends,
+    images
+  } = props
+
   const Map = useMemo(
     () =>
       dynamic(() => import('components/Map'), {
@@ -45,15 +47,37 @@ export function OrphanageTemplate({
   const [activeImageIndex, setActiveImageIndex] = useState(0)
 
   return (
-    <Content>
-      <Image
-        src={images[activeImageIndex].path}
-        alt={name}
-        width={400}
-        height={400}
-      />
+    <Content isOrphanagePage={true}>
+      <S.Banner>
+        <Image
+          src={images[activeImageIndex].url}
+          alt={name}
+          width={300}
+          height={300}
+          objectFit="cover"
+          className="banner"
+        />
+      </S.Banner>
 
-      <S.ImagesContainer></S.ImagesContainer>
+      <S.ImagesContainer>
+        {images.map((image, index) => {
+          return (
+            <S.ButtonSelect
+              key={image.id}
+              onClick={() => setActiveImageIndex(index)}
+              isActiveIndex={activeImageIndex === index}
+            >
+              <Image
+                src={image.url}
+                alt={name}
+                width={88}
+                height={88}
+                className="image-select"
+              />
+            </S.ButtonSelect>
+          )
+        })}
+      </S.ImagesContainer>
 
       <S.Details>
         <h1>{name}</h1>
@@ -96,7 +120,7 @@ export function OrphanageTemplate({
             </S.OpenOnWeekends>
           ) : (
             <S.OpenOnWeekends open_on_weekends={false}>
-              <S.ClockIcon className="not-open" />
+              <S.InfoIcon className="not-open" />
               Não atendemos <br />
               fim de semana
             </S.OpenOnWeekends>
