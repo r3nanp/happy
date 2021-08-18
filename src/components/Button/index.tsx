@@ -16,7 +16,7 @@ export function Button({
   type,
   isSuccessPage = false,
   disabled = false,
-  scale = 0,
+  scale = 1,
   ...props
 }: ButtonProps) {
   return (
