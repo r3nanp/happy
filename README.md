@@ -68,6 +68,8 @@ npm run dev
 
 # 🎨 Layout
 
+<img src="./public/img/banner.png" />
+
 ## [Layout](https://www.figma.com/file/Vb7lt6Ngf8cu5lilSyWzfv/Happy-Web-2.0-(Copy))
 
 <br />
