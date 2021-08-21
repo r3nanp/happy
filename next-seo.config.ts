@@ -3,12 +3,12 @@ export default {
   openGraph: {
     type: 'website',
     locale: 'pt_BR',
-    url: 'https://happy.r3nanp.vercel.app',
+    url: 'https://happy-ebon.vercel.app',
     site_name: 'Happy',
     title: 'Happy',
     images: [
       {
-        url: '/img/banner.png',
+        url: 'https://res.cloudinary.com/djnrsbayp/image/upload/v1629571289/banner_ow8wrd.png',
         width: 2560,
         height: 1440,
         alt: 'Happy'
