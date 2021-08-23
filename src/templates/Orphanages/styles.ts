@@ -1,7 +1,7 @@
 import styled, { css } from 'styled-components'
 import { FiPlus, FiArrowLeft } from 'react-icons/fi'
 
-export const Container = styled.div`
+export const Container = styled.main`
   ${({ theme }) => css`
     width: 100vw;
     height: 100vh;
