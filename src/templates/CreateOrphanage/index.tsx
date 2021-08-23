@@ -80,6 +80,12 @@ export function CreateOrphanageTemplate() {
     []
   )
 
+  const removeFromPreview = (index: number) => {
+    const imagePreview = previewImages.splice(index, 1)
+
+    return imagePreview
+  }
+
   const handleSelectOnMap = useCallback((event: LeafletMouseEvent) => {
     const { lng: longitude, lat: latitude } = event.latlng
 
@@ -111,7 +117,6 @@ export function CreateOrphanageTemplate() {
 
       if (Object.keys(errors).length) {
         setFieldError(errors)
-        console.log(errors)
         return
       }
 
@@ -200,9 +205,16 @@ export function CreateOrphanageTemplate() {
                     width={96}
                     height={96}
                     src={image}
-                    alt={values.name}
+                    alt="Imagem do orfanato"
                     objectFit="cover"
                   />
+
+                  <button
+                    className="remove-select"
+                    onClick={() => removeFromPreview(index)}
+                  >
+                    <S.ExcludeIcon />
+                  </button>
                 </div>
               )
             })}
