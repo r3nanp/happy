@@ -17,7 +17,7 @@ export const Container = styled.main`
   }
 `
 
-export const Children = styled.div`
+export const Children = styled.section`
   width: 100%;
   display: flex;
   justify-content: center;
@@ -70,7 +70,7 @@ export const Content = styled.section`
   `}
 `
 
-export const Wrapper = styled.div`
+export const Wrapper = styled.section`
   position: relative;
 
   .arrow {

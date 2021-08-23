@@ -21,7 +21,7 @@ export const Container = styled.main<ModifierProps>`
   `}
 `
 
-export const Wrapper = styled.div`
+export const Wrapper = styled.section`
   flex: 1;
 `
 
