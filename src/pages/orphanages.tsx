@@ -18,11 +18,12 @@ export default function Orphanages({ orphanages }: OrphanagesProps) {
 }
 
 export const getStaticProps: GetStaticProps = async () => {
-  const { data } = await api.get('/orphanages')
+  const { data } = await api.get<Orphanage[]>('/orphanages')
 
   return {
     props: {
       orphanages: data
-    }
+    },
+    revalidate: 60 * 60 * 24 * 3
   }
 }
