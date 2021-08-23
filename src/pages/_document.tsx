@@ -7,6 +7,7 @@ import Document, {
   NextScript
 } from 'next/document'
 import { ServerStyleSheet } from 'styled-components'
+import { Analytics } from 'components/Analytics'
 
 export default class MyDocument extends Document {
   static async getInitialProps(
@@ -55,6 +56,7 @@ export default class MyDocument extends Document {
         <body>
           <Main />
           <NextScript />
+          <Analytics />
         </body>
       </Html>
     )
