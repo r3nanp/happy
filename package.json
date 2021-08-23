@@ -1,7 +1,24 @@
 {
-  "name": "happy-frontend",
+  "name": "happy",
   "version": "0.1.0",
   "private": true,
+  "author": "r3nanp <renanmol87@gmail.com>",
+  "license": "MIT",
+  "homepage": "https://happy-ebon.vercel.app",
+  "readme": "https://github.com/r3nanp/happy/blob/main/README.md",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/r3nanp/happy.git"
+  },
+  "keywords": [
+    "orphanages",
+    "webapp",
+    "maps",
+    "location"
+  ],
+  "bugs": {
+    "url": "https://github.com/r3nanp/happy/issues"
+  },
   "scripts": {
     "dev": "next dev",
     "build": "next build",
