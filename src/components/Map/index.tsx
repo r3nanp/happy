@@ -21,9 +21,7 @@ type PositionProps = {
 type OrphanageProps = {
   id: number
   name: string
-  latitude: number
-  longitude: number
-}
+} & PositionProps
 
 export type MapProps = {
   initialLatitude: number
@@ -48,6 +46,7 @@ export default function Map({
   ...rest
 }: MapProps) {
   const MAPBOX_TOKEN = process.env.NEXT_PUBLIC_MAPBOX_TOKEN
+  const MAP_STYLE_ID = process.env.NEXT_PUBLIC_MAPBOX_STYLE_ID
 
   function ClickComponent() {
     useMapEvents({
@@ -69,7 +68,7 @@ export default function Map({
         <TileLayer
           url={
             MAPBOX_TOKEN
-              ? `https://api.mapbox.com/styles/v1/mapbox/light-v10/tiles/256/{z}/{x}/{y}@2x?access_token=${MAPBOX_TOKEN}`
+              ? `https://api.mapbox.com/styles/v1/mapbox/${MAP_STYLE_ID}/tiles/256/{z}/{x}/{y}@2x?access_token=${MAPBOX_TOKEN}`
               : 'https://a.tile.openstreetmap.org/{z}/{x}/{y}.png'
           }
         />
