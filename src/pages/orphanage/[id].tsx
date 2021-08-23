@@ -56,7 +56,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     longitude: data.longitude,
     about: data.about,
     instructions: data.instructions,
-    opening_hours: data.opening_hours.padStart(2, '0').split(''),
+    opening_hours: data.opening_hours,
     open_on_weekends: data.open_on_weekends,
     images: data.images
   }
