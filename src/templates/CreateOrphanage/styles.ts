@@ -1,6 +1,6 @@
 import styled, { css, DefaultTheme } from 'styled-components'
 import { motion } from 'framer-motion'
-import { FiPlus } from 'react-icons/fi'
+import { FiPlus, FiX } from 'react-icons/fi'
 
 const modifier = {
   legend: (theme: DefaultTheme) => css`
@@ -57,18 +57,32 @@ export const Register = styled.fieldset`
 `
 
 export const ImageContainer = styled.div`
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  gap: 1rem;
+  ${({ theme }) => css`
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 1rem;
 
-  .image-wrapper {
-    width: 100%;
-    height: 7rem;
-    img {
-      object-fit: cover;
-      border-radius: 1.5rem;
+    .image-wrapper {
+      width: 100%;
+      height: 7rem;
+      position: relative;
+
+      img {
+        object-fit: cover;
+        border-radius: 1.5rem;
+      }
+
+      .remove-select {
+        width: 2.5rem;
+        height: 2rem;
+        border-radius: 0 10px 0 10px;
+        background: ${theme.colors.white};
+        border: 0;
+        position: absolute;
+        right: 0;
+      }
     }
-  }
+  `}
 `
 
 export const Visit = styled.fieldset`
@@ -118,4 +132,9 @@ export const ButtonSelect = styled.div`
 export const PlusIcon = styled(FiPlus)`
   size: 24;
   color: #15b6d6;
+`
+
+export const ExcludeIcon = styled(FiX)`
+  width: 2.5rem;
+  color: ${({ theme }) => theme.colors.red};
 `
