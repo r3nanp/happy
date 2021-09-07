@@ -14,8 +14,8 @@ type Orphanage = {
   longitude: number
   about: string
   instructions: string
-  opening_hours: string
-  open_on_weekends: boolean
+  openingHours: string
+  openOnWeekends: boolean
   images: Image[]
 }
 
@@ -49,15 +49,15 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
 
   const { data } = await api.get(`/orphanages/${id}`)
 
-  const orphanage = {
+  const orphanage: Orphanage = {
     id: data.id,
     name: data.name,
     latitude: data.latitude,
     longitude: data.longitude,
     about: data.about,
     instructions: data.instructions,
-    opening_hours: data.opening_hours,
-    open_on_weekends: data.open_on_weekends,
+    openingHours: data.opening_hours,
+    openOnWeekends: data.open_on_weekends,
     images: data.images
   }
 

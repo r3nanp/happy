@@ -2,7 +2,7 @@ import styled, { css, DefaultTheme } from 'styled-components'
 import { FiClock, FiInfo } from 'react-icons/fi'
 import { OrphanageProps } from '.'
 
-type ModifierProps = Pick<OrphanageProps, 'open_on_weekends'>
+type ModifierProps = Pick<OrphanageProps, 'openOnWeekends'>
 
 type ActiveProps = {
   isActiveIndex?: boolean
@@ -127,12 +127,12 @@ export const OpeningHours = styled.div`
 `
 
 export const OpenOnWeekends = styled.div<ModifierProps>`
-  ${({ theme, open_on_weekends }) => css`
+  ${({ theme, openOnWeekends }) => css`
     background: linear-gradient(154.16deg, #edfff6 7.85%, #ffffff 91.03%);
     border: 1px solid #a1e9c5;
     color: ${theme.colors.green};
 
-    ${!open_on_weekends && modifier.isNotOpenOnWeekend(theme)};
+    ${!openOnWeekends && modifier.isNotOpenOnWeekend(theme)};
   `}
 `
 
