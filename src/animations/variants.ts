@@ -1,4 +1,6 @@
-const container = {
+import { Variants } from 'framer-motion'
+
+const container: Variants = {
   hidden: { opacity: 1, scale: 0 },
   visible: {
     opacity: 1,
@@ -10,7 +12,7 @@ const container = {
   }
 }
 
-const item = {
+const item: Variants = {
   hidden: { y: 20, opacity: 0 },
   visible: {
     y: 0,
@@ -18,11 +20,11 @@ const item = {
   }
 }
 
-const pulse = {
+const pulse: Variants = {
   pulseEffect: {
-    scale: [1, 1.1, 1, 1.2, 1, 1],
+    scale: [1, 1.1, 1, 1.2, 1.1, 1],
     transition: {
-      delay: 1
+      delay: 0.5
     }
   }
 }

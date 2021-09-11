@@ -17,8 +17,8 @@ export type OrphanageProps = {
   longitude: number
   about: string
   instructions: string
-  opening_hours: string
-  open_on_weekends: boolean
+  openingHours: string
+  openOnWeekends: boolean
   images: Image[]
 }
 
@@ -29,8 +29,8 @@ export function OrphanageTemplate(props: OrphanageProps) {
     longitude,
     about,
     instructions,
-    opening_hours,
-    open_on_weekends,
+    openingHours,
+    openOnWeekends,
     images
   } = props
 
@@ -109,17 +109,17 @@ export function OrphanageTemplate(props: OrphanageProps) {
           <S.OpeningHours>
             <S.ClockIcon />
             Segunda à Sexta <br />
-            {opening_hours}
+            {openingHours}
           </S.OpeningHours>
 
-          {open_on_weekends ? (
-            <S.OpenOnWeekends open_on_weekends>
+          {openOnWeekends ? (
+            <S.OpenOnWeekends openOnWeekends>
               <S.InfoIcon />
               Atendemos <br />
               fim de semana
             </S.OpenOnWeekends>
           ) : (
-            <S.OpenOnWeekends open_on_weekends={false}>
+            <S.OpenOnWeekends openOnWeekends={false}>
               <S.InfoIcon className="not-open" />
               Não atendemos <br />
               fim de semana
