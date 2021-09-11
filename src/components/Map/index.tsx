@@ -1,6 +1,5 @@
-import { LeafletMouseEvent } from 'leaflet'
-import 'leaflet/dist/leaflet.css'
 import Link from 'next/link'
+import 'leaflet/dist/leaflet.css'
 import {
   MapContainer,
   TileLayer,
@@ -9,8 +8,9 @@ import {
   Marker,
   Popup
 } from 'react-leaflet'
-import { mapIcon } from 'utils/map-icon'
+import type { LeafletMouseEvent } from 'leaflet'
 
+import { mapIcon } from 'utils/map-icon'
 import * as S from './styles'
 
 type PositionProps = {
@@ -46,9 +46,9 @@ export default function Map({
   ...rest
 }: MapProps) {
   const MAPBOX_TOKEN = process.env.NEXT_PUBLIC_MAPBOX_TOKEN
-  const MAP_STYLE_ID = process.env.NEXT_PUBLIC_MAPBOX_STYLE_ID
+  const MAP_STYLE_ID = process.env.NEXT_PUBLIC_MAPBOX_STYLE_ID ?? 'light-v10'
 
-  function ClickComponent() {
+  function ClickOnMap() {
     useMapEvents({
       click: event => handleSelectOnMap(event)
     })
@@ -81,7 +81,7 @@ export default function Map({
           />
         )}
 
-        {!!handleSelectOnMap && <ClickComponent />}
+        {!!handleSelectOnMap && <ClickOnMap />}
 
         {orphanages &&
           orphanages.map(orphanage => {
