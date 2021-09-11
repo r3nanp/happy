@@ -93,7 +93,7 @@ export const Wrapper = styled.section`
   }
 `
 
-export const Location = styled.div`
+export const Access = styled.div`
   position: absolute;
   right: 0;
   top: 0;

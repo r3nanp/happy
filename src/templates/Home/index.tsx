@@ -1,11 +1,15 @@
 import Link from 'next/link'
 import Image from 'next/image'
+import { useRouter } from 'next/router'
 import { motion } from 'framer-motion'
 
+import { Button } from 'components/Button'
 import { pulse } from 'animations/variants'
 import * as S from './styles'
 
 export function HomeTemplate() {
+  const { push } = useRouter()
+
   return (
     <S.Container>
       <S.Content>
@@ -24,10 +28,11 @@ export function HomeTemplate() {
       </S.Children>
 
       <S.Wrapper>
-        <S.Location>
-          <strong>Fortaleza</strong>
-          <span>Ceará</span>
-        </S.Location>
+        <S.Access>
+          <Button type="button" onClick={() => push('/sign-in')}>
+            Acesso restrito
+          </Button>
+        </S.Access>
 
         <Link href="/orphanages" passHref>
           <motion.a
