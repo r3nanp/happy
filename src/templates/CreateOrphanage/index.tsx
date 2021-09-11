@@ -168,10 +168,10 @@ export function CreateOrphanageTemplate() {
         <S.Register>
           <legend>Dados</legend>
           <Map
+            showSmallMap
             initialLatitude={position.latitude}
             initialLongitude={position.longitude}
             handleSelectOnMap={handleSelectOnMap}
-            showSmallMap={true}
             height={280}
             position={{
               latitude: position.latitude,
