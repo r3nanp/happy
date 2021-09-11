@@ -4,6 +4,11 @@ export type FieldErrors = {
   [key: string]: string
 }
 
+type LoginValues = {
+  email: string
+  password: string
+}
+
 type InputValues = {
   name: string
   about: string
@@ -26,6 +31,11 @@ const fieldsValidations = {
   images: Joi.array().items().required()
 }
 
+const loginFieldsValidations = {
+  email: Joi.string().min(4).required(),
+  password: Joi.string().min(7).required()
+}
+
 function getFieldErrors(objError: Joi.ValidationResult) {
   const errors: FieldErrors = {}
 
@@ -40,6 +50,12 @@ function getFieldErrors(objError: Joi.ValidationResult) {
 
 export function createOrphanageValidation(values: InputValues) {
   const schema = Joi.object(fieldsValidations)
+
+  return getFieldErrors(schema.validate(values, { abortEarly: false }))
+}
+
+export function loginValidation(values: LoginValues) {
+  const schema = Joi.object(loginFieldsValidations)
 
   return getFieldErrors(schema.validate(values, { abortEarly: false }))
 }
