@@ -7,7 +7,11 @@ import * as S from './styles'
 
 export function HomeTemplate() {
   return (
-    <S.Container>
+    <S.Container
+      initial={{ y: -20, opacity: 0 }}
+      animate={{ y: 0, opacity: 1 }}
+      transition={{ duration: 0.7, delay: 0.4 }}
+    >
       <S.Content>
         <div className="image-wrapper">
           <Image src="/img/logo-full.svg" alt="Logo" width={300} height={300} />

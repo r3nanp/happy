@@ -1,7 +1,8 @@
 import styled, { css } from 'styled-components'
 import { FaArrowRight } from 'react-icons/fa'
+import { motion } from 'framer-motion'
 
-export const Container = styled.main`
+export const Container = styled(motion.main)`
   width: 100vw;
   height: 100vh;
   background: ${({ theme }) => theme.gradient};
