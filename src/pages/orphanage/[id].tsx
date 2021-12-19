@@ -65,6 +65,6 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     props: {
       orphanage
     },
-    revalidate: 60 * 60 * 24 * 3
+    revalidate: 60 * 60 * 24 * 3 // 3 days
   }
 }

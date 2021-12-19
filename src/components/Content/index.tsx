@@ -11,6 +11,7 @@ export function Content({ children, isOrphanagePage = false }: ContentProps) {
   return (
     <S.Container isOrphanagePage={isOrphanagePage}>
       <Sidebar />
+
       <S.Wrapper>
         <S.Content isOrphanagePage={isOrphanagePage}>{children}</S.Content>
       </S.Wrapper>

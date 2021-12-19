@@ -22,7 +22,7 @@ const item: Variants = {
 
 const pulse: Variants = {
   pulseEffect: {
-    scale: [1, 1.1, 1, 1.2, 1.1, 1],
+    scale: [1, 1.2, 1, 1.2, 1],
     transition: {
       delay: 0.5
     }

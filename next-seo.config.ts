@@ -1,14 +1,16 @@
+import { APP_URL, BANNER_IMAGE } from 'constants/seo'
+
 /* eslint-disable import/no-anonymous-default-export */
 export default {
   openGraph: {
     type: 'website',
     locale: 'pt_BR',
-    url: 'https://happy-ebon.vercel.app',
+    url: APP_URL,
     site_name: 'Happy',
     title: 'Happy',
     images: [
       {
-        url: 'https://res.cloudinary.com/djnrsbayp/image/upload/v1629571289/banner_ow8wrd.png',
+        url: BANNER_IMAGE,
         width: 2560,
         height: 1440,
         alt: 'Happy'

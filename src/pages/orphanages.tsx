@@ -24,6 +24,6 @@ export const getStaticProps: GetStaticProps = async () => {
     props: {
       orphanages: data
     },
-    revalidate: 60 * 60 * 24 * 3
+    revalidate: 60 * 60 * 24 * 3 // 3 days
   }
 }
