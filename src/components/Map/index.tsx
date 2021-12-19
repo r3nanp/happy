@@ -1,5 +1,5 @@
-import { LeafletMouseEvent } from 'leaflet'
 import 'leaflet/dist/leaflet.css'
+import { LeafletMouseEvent } from 'leaflet'
 import Link from 'next/link'
 import {
   MapContainer,
@@ -9,19 +9,11 @@ import {
   Marker,
   Popup
 } from 'react-leaflet'
+
 import { mapIcon } from 'utils/map-icon'
-
+import { OrphanageProps, PositionProps } from 'types/Map'
+import { MAPBOX_TOKEN, MAP_STYLE_ID } from 'constants/mapbox'
 import * as S from './styles'
-
-type PositionProps = {
-  longitude: number
-  latitude: number
-}
-
-type OrphanageProps = {
-  id: number
-  name: string
-} & PositionProps
 
 export type MapProps = {
   initialLatitude: number
@@ -37,18 +29,15 @@ export type MapProps = {
 export default function Map({
   initialLatitude,
   initialLongitude,
-  height,
-  handleSelectOnMap,
-  showSmallMap,
-  isGoogleMaps = false,
   position,
   orphanages,
+  height = '100%',
+  handleSelectOnMap,
+  showSmallMap = false,
+  isGoogleMaps = false,
   ...rest
 }: MapProps) {
-  const MAPBOX_TOKEN = process.env.NEXT_PUBLIC_MAPBOX_TOKEN
-  const MAP_STYLE_ID = process.env.NEXT_PUBLIC_MAPBOX_STYLE_ID
-
-  function ClickComponent() {
+  const MapClick = () => {
     useMapEvents({
       click: event => handleSelectOnMap(event)
     })
@@ -62,7 +51,7 @@ export default function Map({
         center={[initialLatitude, initialLongitude]}
         zoom={15}
         zoomControl={false}
-        style={{ width: '100%', height: `${height ?? '100%'}` }}
+        style={{ width: '100%', height }}
         {...rest}
       >
         <TileLayer
@@ -81,7 +70,7 @@ export default function Map({
           />
         )}
 
-        {!!handleSelectOnMap && <ClickComponent />}
+        {!!handleSelectOnMap && <MapClick />}
 
         {orphanages &&
           orphanages.map(orphanage => {
