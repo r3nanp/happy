@@ -1,23 +1,7 @@
 import { GetStaticPaths, GetStaticProps } from 'next'
 import { api } from 'services/api'
+import { Orphanage } from 'types/Orphanage'
 import { OrphanageTemplate } from 'templates/Orphanage'
-
-type Image = {
-  id: string
-  url: string
-}
-
-type Orphanage = {
-  id: string
-  name: string
-  latitude: number
-  longitude: number
-  about: string
-  instructions: string
-  openingHours: string
-  openOnWeekends: boolean
-  images: Image[]
-}
 
 type OrphanageProps = {
   orphanage: Orphanage

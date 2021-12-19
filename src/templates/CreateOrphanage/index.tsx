@@ -6,18 +6,14 @@ import {
   useMemo,
   useState
 } from 'react'
-import type { LeafletMouseEvent } from 'leaflet'
 import { useRouter } from 'next/router'
 import Image from 'next/image'
 import dynamic from 'next/dynamic'
+import type { LeafletMouseEvent } from 'leaflet'
 import { createOrphanageValidation, FieldErrors } from 'utils/validations'
 import { api } from 'services/api'
 
-import { Button } from 'components/Button'
-import { Content } from 'components/Content'
-import { Input } from 'components/Input'
-import { Loading } from 'components/Loading'
-
+import { Button, Content, Input, Loading } from 'components'
 import { container } from 'animations/variants'
 import * as S from './styles'
 
