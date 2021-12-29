@@ -3,7 +3,7 @@ export type Image = {
   url: string
 }
 
-export type Orphanage = {
+export type OrphanageData = {
   id: string
   name: string
   latitude: number
