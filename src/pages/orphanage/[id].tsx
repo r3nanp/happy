@@ -1,10 +1,10 @@
 import { GetStaticPaths, GetStaticProps } from 'next'
 import { api } from 'services/api'
-import { Orphanage } from 'types/Orphanage'
+import { OrphanageData } from 'types/Orphanage'
 import { OrphanageTemplate } from 'templates/Orphanage'
 
 type OrphanageProps = {
-  orphanage: Orphanage
+  orphanage: OrphanageData
 }
 
 export default function Orphanage({ orphanage }: OrphanageProps) {
@@ -12,7 +12,7 @@ export default function Orphanage({ orphanage }: OrphanageProps) {
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const { data } = await api.get<Orphanage[]>('/orphanages')
+  const { data } = await api.get<OrphanageData[]>('/orphanages')
 
   const paths = data.map(path => {
     return {
@@ -31,23 +31,11 @@ export const getStaticPaths: GetStaticPaths = async () => {
 export const getStaticProps: GetStaticProps = async ({ params }) => {
   const { id } = params
 
-  const { data } = await api.get(`/orphanages/${id}`)
-
-  const orphanage: Orphanage = {
-    id: data.id,
-    name: data.name,
-    latitude: data.latitude,
-    longitude: data.longitude,
-    about: data.about,
-    instructions: data.instructions,
-    openingHours: data.opening_hours,
-    openOnWeekends: data.open_on_weekends,
-    images: data.images
-  }
+  const { data } = await api.get<OrphanageData>(`/orphanages/${id}`)
 
   return {
     props: {
-      orphanage
+      orphanage: data
     },
     revalidate: 60 * 60 * 24 * 3 // 3 days
   }
