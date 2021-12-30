@@ -1,6 +1,6 @@
 import { Lottie } from '@crello/react-lottie'
 import styled from 'styled-components'
-import animation from 'animations/loading.json'
+import animation from 'constants/loading.json'
 
 const Wrapper = styled.section`
   width: 100vw;

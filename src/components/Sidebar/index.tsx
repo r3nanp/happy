@@ -5,10 +5,6 @@ import * as S from './styles'
 export function Sidebar() {
   const { back } = useRouter()
 
-  const goBack = () => {
-    back()
-  }
-
   return (
     <S.Container>
       <S.ImageWrapper>
@@ -16,7 +12,7 @@ export function Sidebar() {
       </S.ImageWrapper>
 
       <S.GoBack>
-        <button onClick={goBack}>
+        <button onClick={() => back()}>
           <S.ArrowBack />
         </button>
       </S.GoBack>
