@@ -1,6 +1,7 @@
 import Router from 'next/router'
 import Image from 'next/image'
-import { Button } from 'components/Button'
+
+import { Button } from 'components'
 import * as S from './styles'
 
 export type ActionProps = {
@@ -28,7 +29,7 @@ export function ActionTemplate({
           <>
             <h1>Ebaaaa!</h1>
             <p>O cadastro deu certo e foi enviado.</p>
-            <Button type="button" isSuccessPage={true} onClick={goToHome}>
+            <Button type="button" isSuccessPage onClick={goToHome}>
               Voltar para home
             </Button>
           </>

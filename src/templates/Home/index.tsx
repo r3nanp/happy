@@ -2,7 +2,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { motion } from 'framer-motion'
 
-import { pulse } from 'animations/variants'
+import { pulse } from 'constants/animations'
 import * as S from './styles'
 
 export function HomeTemplate() {
