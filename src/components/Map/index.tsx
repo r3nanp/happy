@@ -26,15 +26,15 @@ export type MapProps = {
   handleSelectOnMap?: (event: LeafletMouseEvent) => void
 } & MapContainerProps
 
-export default function Map({
+export default function MapComponent({
   initialLatitude,
   initialLongitude,
   position,
   orphanages,
   height = '100%',
-  handleSelectOnMap,
   showSmallMap = false,
   isGoogleMaps = false,
+  handleSelectOnMap,
   ...rest
 }: MapProps) {
   const MapClick = () => {

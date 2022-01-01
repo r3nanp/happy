@@ -1,0 +1,2 @@
+export const INITIAL_LATITUDE = -3.7305253
+export const INITIAL_LONGITUDE = -38.5311193

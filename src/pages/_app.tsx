@@ -1,24 +1,22 @@
 import { AppProps } from 'next/app'
-import Head from 'next/head'
-import { ThemeProvider } from 'styled-components'
+import { Hydrate, QueryClientProvider } from 'react-query'
+import { ReactQueryDevtools } from 'react-query/devtools'
 
-import { DefaultSeo } from 'next-seo'
-import SEO from '../../next-seo.config'
-
-import { GlobalStyle } from 'styles/global'
-import { theme } from 'styles/theme'
+import { AppProvider } from 'providers/AppProvider'
+import { useQueryClient } from 'hooks/useQueryClient'
 
 function MyApp({ Component, pageProps }: AppProps) {
-  return (
-    <ThemeProvider theme={theme}>
-      <Head>
-        <title>Happy</title>
-      </Head>
+  const queryClient = useQueryClient()
 
-      <DefaultSeo {...SEO} />
-      <GlobalStyle />
-      <Component {...pageProps} />
-    </ThemeProvider>
+  return (
+    <QueryClientProvider client={queryClient}>
+      <Hydrate state={pageProps.dehydratedState}>
+        {process.env.NODE_ENV !== 'test' && <ReactQueryDevtools />}
+        <AppProvider>
+          <Component {...pageProps} />
+        </AppProvider>
+      </Hydrate>
+    </QueryClientProvider>
   )
 }
 

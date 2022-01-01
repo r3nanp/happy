@@ -84,16 +84,15 @@ export function OrphanageTemplate(props: OrphanageProps) {
         <p>{about}</p>
 
         <Map
+          isGoogleMaps
+          showSmallMap
           initialLatitude={latitude}
           initialLongitude={longitude}
-          height={280}
           dragging={false}
           touchZoom={false}
           zoomControl={false}
           scrollWheelZoom={false}
           doubleClickZoom={false}
-          showSmallMap={true}
-          isGoogleMaps={true}
           position={{
             latitude,
             longitude

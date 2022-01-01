@@ -1,24 +1,20 @@
-import {
-  ChangeEvent,
-  FormEvent,
-  useCallback,
-  useEffect,
-  useMemo,
-  useState
-} from 'react'
+import { ChangeEvent, FormEvent, useCallback, useMemo, useState } from 'react'
+import { toast } from 'react-hot-toast'
 import { useRouter } from 'next/router'
 import Image from 'next/image'
 import dynamic from 'next/dynamic'
-import type { LeafletMouseEvent } from 'leaflet'
-import { createOrphanageValidation, FieldErrors } from 'utils/validations'
 import { api } from 'services/api'
+import type { LeafletMouseEvent } from 'leaflet'
 
+import { useGeolocation } from 'hooks/useGeolocation'
+import { createOrphanageValidation, FieldErrors } from 'utils/validations'
 import { Button, Content, Input, Loading } from 'components'
-import { container } from 'animations/variants'
+import { container } from 'constants/animations'
 import * as S from './styles'
 
 export function CreateOrphanageTemplate() {
   const { push } = useRouter()
+  const { position, handleChangePosition } = useGeolocation()
 
   const Map = useMemo(
     () =>
@@ -30,11 +26,6 @@ export function CreateOrphanageTemplate() {
     []
   )
 
-  const [position, setPosition] = useState({
-    latitude: -3.7305253,
-    longitude: -38.5311193
-  })
-
   const [values, setValues] = useState({
     name: '',
     about: '',
@@ -44,6 +35,7 @@ export function CreateOrphanageTemplate() {
 
   const [openOnWeekends, setOpenOnWeekends] = useState(false)
   const [fieldError, setFieldError] = useState<FieldErrors>({})
+  const [isLoading, setIsLoading] = useState(false)
 
   const [images, setImages] = useState<File[]>([])
   const [previewImages, setPreviewImages] = useState<string[]>([])
@@ -53,7 +45,7 @@ export function CreateOrphanageTemplate() {
   }, [])
 
   // Next.js image loader to preview images
-  const myLoader = ({ src }) => {
+  const myLoader = ({ src }: { src: string }) => {
     return src
   }
 
@@ -76,82 +68,85 @@ export function CreateOrphanageTemplate() {
     []
   )
 
-  const removeFromPreview = (index: number) => {
-    const imagePreview = previewImages.splice(index, 1)
+  const removeFromPreview = useCallback(
+    (index: number) => {
+      const imageDeleted = previewImages.filter((_, i) => i !== index)
 
-    return imagePreview
-  }
+      setPreviewImages(imageDeleted)
+    },
+    [previewImages]
+  )
 
-  const handleSelectOnMap = useCallback((event: LeafletMouseEvent) => {
-    const { lng: longitude, lat: latitude } = event.latlng
+  const handleSelectOnMap = useCallback(
+    (event: LeafletMouseEvent) => {
+      const { lng: longitude, lat: latitude } = event.latlng
 
-    setPosition({
-      latitude,
-      longitude
-    })
-  }, [])
+      handleChangePosition({
+        latitude,
+        longitude
+      })
+    },
+    [handleChangePosition]
+  )
 
   const handleSubmit = useCallback(
     async (event: FormEvent) => {
       event.preventDefault()
+      setIsLoading(true)
 
-      const { latitude, longitude } = position
-      const { name, about, openingHours, instructions } = values
+      try {
+        const { latitude, longitude } = position
+        const { name, about, openingHours, instructions } = values
 
-      const inputValues = {
-        name,
-        about,
-        latitude,
-        longitude,
-        openingHours,
-        instructions,
-        openOnWeekends,
-        images
+        const inputValues = {
+          name,
+          about,
+          latitude,
+          longitude,
+          openingHours,
+          instructions,
+          openOnWeekends,
+          images
+        }
+
+        const errors = createOrphanageValidation(inputValues)
+
+        if (Object.keys(errors).length) {
+          setFieldError(errors)
+          return
+        }
+
+        setFieldError({})
+
+        const data = new FormData()
+
+        data.append('name', name)
+        data.append('latitude', String(latitude))
+        data.append('longitude', String(longitude))
+        data.append('about', about)
+        data.append('instructions', instructions)
+        data.append('opening_hours', openingHours)
+        data.append('open_on_weekends', String(openOnWeekends))
+
+        images.forEach(image => {
+          data.append('images', image)
+        })
+
+        toast.promise(api.post('/orphanages', data), {
+          loading: 'Salvando...',
+          success: <p>Dados do orfanato enviados!</p>,
+          error: <p>Dados não foram enviados.</p>
+        })
+        setIsLoading(false)
+
+        push('/success')
+      } catch (e) {
+        toast.error(e.message)
+        throw new Error(e)
       }
-
-      const errors = createOrphanageValidation(inputValues)
-
-      if (Object.keys(errors).length) {
-        setFieldError(errors)
-        return
-      }
-
-      setFieldError({})
-
-      const data = new FormData()
-
-      data.append('name', name)
-      data.append('latitude', String(latitude))
-      data.append('longitude', String(longitude))
-      data.append('about', about)
-      data.append('instructions', instructions)
-      data.append('opening_hours', openingHours)
-      data.append('open_on_weekends', String(openOnWeekends))
-
-      images.forEach(image => {
-        data.append('images', image)
-      })
-
-      await api.post('/orphanages', data)
-
-      push('/success')
     },
     [images, openOnWeekends, position, push, values]
   )
-
-  useEffect(() => {
-    navigator.geolocation.getCurrentPosition(
-      position => {
-        const { latitude, longitude } = position.coords
-
-        setPosition({
-          latitude,
-          longitude
-        })
-      },
-      error => console.error(error)
-    )
-  }, [])
 
   return (
     <Content>
@@ -163,12 +158,12 @@ export function CreateOrphanageTemplate() {
       >
         <S.Register>
           <legend>Dados</legend>
+
           <Map
             initialLatitude={position.latitude}
             initialLongitude={position.longitude}
             handleSelectOnMap={handleSelectOnMap}
             showSmallMap={true}
-            height={280}
             position={{
               latitude: position.latitude,
               longitude: position.longitude
@@ -206,6 +201,7 @@ export function CreateOrphanageTemplate() {
                   />
 
                   <button
+                    type="button"
                     className="remove-select"
                     onClick={() => removeFromPreview(index)}
                   >
@@ -265,7 +261,7 @@ export function CreateOrphanageTemplate() {
             </button>
           </S.ButtonSelect>
 
-          <Button scale={1.2} type="submit">
+          <Button scale={1.2} type="submit" isLoading={isLoading}>
             Confirmar
           </Button>
         </S.Visit>

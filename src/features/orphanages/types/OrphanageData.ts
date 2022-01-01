@@ -3,7 +3,7 @@ export type Image = {
   url: string
 }
 
-export type OrphanageData = {
+export type CreateOrphanageData = {
   id: string
   name: string
   latitude: number
@@ -13,4 +13,11 @@ export type OrphanageData = {
   openingHours: string
   openOnWeekends: boolean
   images: Image[]
+}
+
+export type OrphanageData = {
+  id: string
+  name: string
+  latitude: number
+  longitude: number
 }

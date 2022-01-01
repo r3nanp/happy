@@ -1,14 +1,15 @@
-import { useEffect, useMemo, useState } from 'react'
+import { useMemo } from 'react'
 import dynamic from 'next/dynamic'
 import Image from 'next/image'
 import Link from 'next/link'
 import { motion } from 'framer-motion'
 
+import { useGeolocation } from 'hooks/useGeolocation'
 import { Loading } from 'components/Loading'
 import * as S from './styles'
 
 type Orphanages = {
-  id: number
+  id: string
   name: string
   latitude: number
   longitude: number
@@ -19,6 +20,8 @@ type OrphanageProps = {
 }
 
 export function OrphanagesTemplate({ orphanages }: OrphanageProps) {
+  const { position } = useGeolocation()
+
   const Map = useMemo(
     () =>
       dynamic(() => import('components/Map'), {
@@ -28,25 +31,6 @@ export function OrphanagesTemplate({ orphanages }: OrphanageProps) {
       }),
     []
   )
-
-  const [position, setPosition] = useState({
-    latitude: -3.7305253,
-    longitude: -38.5311193
-  })
-
-  useEffect(() => {
-    navigator.geolocation.getCurrentPosition(
-      position => {
-        const { latitude, longitude } = position.coords
-
-        setPosition({
-          latitude,
-          longitude
-        })
-      },
-      error => console.error(error)
-    )
-  }, [])
 
   return (
     <S.Container>
