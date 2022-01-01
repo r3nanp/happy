@@ -1,29 +1,27 @@
 import { GetStaticProps } from 'next'
-import { api } from 'services/api'
+import {
+  getAllOrphanages,
+  useOrphanages
+} from 'features/orphanages/apis/getAllOrphanages'
 import { OrphanagesTemplate } from 'templates/Orphanages'
+import { dehydrate, QueryClient } from 'react-query'
 
-type Orphanage = {
-  id: number
-  name: string
-  latitude: number
-  longitude: number
-}
+export default function Orphanages() {
+  const { data } = useOrphanages()
 
-type OrphanagesProps = {
-  orphanages: Orphanage[]
-}
-
-export default function Orphanages({ orphanages }: OrphanagesProps) {
-  return <OrphanagesTemplate orphanages={orphanages} />
+  return <OrphanagesTemplate orphanages={data} />
 }
 
 export const getStaticProps: GetStaticProps = async () => {
-  const { data } = await api.get<Orphanage[]>('/orphanages')
+  const queryClient = new QueryClient()
+
+  await queryClient.prefetchQuery(['orphanages', 10], getAllOrphanages, {
+    staleTime: 1000 * 5 // 5 seconds
+  })
 
   return {
     props: {
-      orphanages: data
-    },
-    revalidate: 60 * 60 * 24 * 3 // 3 days
+      dehydratedState: dehydrate(queryClient)
+    }
   }
 }
