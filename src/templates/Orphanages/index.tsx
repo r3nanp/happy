@@ -9,7 +9,7 @@ import { Loading } from 'components/Loading'
 import * as S from './styles'
 
 type Orphanages = {
-  id: number
+  id: string
   name: string
   latitude: number
   longitude: number
