@@ -138,7 +138,6 @@ export function CreateOrphanageTemplate() {
           error: <p>Dados não foram enviados.</p>
         })
         setIsLoading(false)
-        await api.post('/orphanages', data)
 
         push('/success')
       } catch (e) {

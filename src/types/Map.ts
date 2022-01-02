@@ -4,6 +4,6 @@ export type PositionProps = {
 }
 
 export type OrphanageProps = {
-  id: number
+  id: string
   name: string
 } & PositionProps

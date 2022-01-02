@@ -23,18 +23,12 @@
 - Next.js
 - Typescript
 - styled-components
-- polished
-- react-icons
 - framer-motion
 - Joi
-- lottie
 - axios
-- Storybook
+- react-query
 - Jest
 - Testing Library
-- husky
-- next-pwa
-- next-seo
 
 # 🎉 Contributing
 

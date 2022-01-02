@@ -1,42 +1,43 @@
 import { GetStaticPaths, GetStaticProps } from 'next'
-import { api } from 'services/api'
-import { OrphanageData } from 'types/Orphanage'
+import { useRouter } from 'next/router'
+import { dehydrate, QueryClient } from 'react-query'
 import { OrphanageTemplate } from 'templates/Orphanage'
+import {
+  getOrphanage,
+  useOrphanage
+} from 'features/orphanages/apis/getOrphanage'
 
-type OrphanageProps = {
-  orphanage: OrphanageData
-}
+export default function Orphanage() {
+  const router = useRouter()
 
-export default function Orphanage({ orphanage }: OrphanageProps) {
-  return <OrphanageTemplate {...orphanage} />
+  const orphanageId = router.query.id as string
+
+  const { data } = useOrphanage({
+    orphanageId
+  })
+
+  return <OrphanageTemplate {...data} />
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const { data } = await api.get<OrphanageData[]>('/orphanages')
-
-  const paths = data.map(path => {
-    return {
-      params: {
-        id: path.id
-      }
-    }
-  })
-
   return {
-    paths,
+    paths: [],
     fallback: 'blocking'
   }
 }
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
-  const { id } = params
+  const id = params.id as string
 
-  const { data } = await api.get<OrphanageData>(`/orphanages/${id}`)
+  const queryClient = new QueryClient()
+
+  await queryClient.prefetchQuery(['orphanage', id], () =>
+    getOrphanage({ orphanageId: id })
+  )
 
   return {
     props: {
-      orphanage: data
-    },
-    revalidate: 60 * 60 * 24 * 3 // 3 days
+      dehydratedState: dehydrate(queryClient)
+    }
   }
 }
