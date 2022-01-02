@@ -4,11 +4,6 @@ import toast from 'react-hot-toast'
 import { PositionProps } from 'types/Map'
 import { INITIAL_LATITUDE, INITIAL_LONGITUDE } from 'constants/initial-position'
 
-type LatLng = {
-  latitude: number
-  longitude: number
-}
-
 export const useGeolocation = () => {
   const [position, setPosition] = useState<PositionProps>({
     latitude: INITIAL_LATITUDE,
@@ -17,7 +12,7 @@ export const useGeolocation = () => {
   const [loaded, setLoaded] = useState(false)
 
   const handleChangePosition = useCallback(
-    ({ longitude, latitude }: LatLng) => {
+    ({ longitude, latitude }: PositionProps) => {
       setLoaded(true)
 
       setPosition({

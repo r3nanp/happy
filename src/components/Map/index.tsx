@@ -37,7 +37,7 @@ export default function MapComponent({
   handleSelectOnMap,
   ...rest
 }: MapProps) {
-  const MapClick = () => {
+  function MapClick() {
     useMapEvents({
       click: event => handleSelectOnMap(event)
     })
