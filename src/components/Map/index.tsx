@@ -34,7 +34,7 @@ export default function MapComponent({
   height = '100%',
   showSmallMap = false,
   isGoogleMaps = false,
-  handleSelectOnMap,
+  handleSelectOnMap = () => {},
   ...rest
 }: MapProps) {
   const MapClick = () => {

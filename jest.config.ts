@@ -1,5 +1,8 @@
-// eslint-disable-next-line import/no-anonymous-default-export
-export default {
+import nextJest from 'next/jest'
+
+const createJestConfig = nextJest({ dir: './' })
+
+const customJestConfig = {
   testEnvironment: 'jsdom',
   testPathIgnorePatterns: ['/node_modules/', '/.next/'],
   collectCoverage: true,
@@ -21,3 +24,5 @@ export default {
       '<rootDir>/node_modules/styled-components/dist/styled-components.browser.cjs.js'
   }
 }
+
+export default createJestConfig(customJestConfig)
